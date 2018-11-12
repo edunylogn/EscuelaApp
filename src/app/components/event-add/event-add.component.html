@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Nuevo Evento</span>
+    <form (ngSubmit)="onGuardarEvent(formNew)" #formNew="ngForm" class="col s6">
+      <div class="row">
+        <div class="input-field col s6">
+          <input [(ngModel)]="event.title" #title="ngModel" type="text" name="title" id="title" placeholder="Título del evento" minlength="8"
+            maxlength="50" required>
+          <label>Título</label>
+          <div *ngIf="title.touched && !title.valid">
+            <div *ngIf="title.errors.required">Título es requerido</div>
+            <div *ngIf="title.errors.minlength">Título debe ser de al menos {{title.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="event.description" #description="ngModel" type="text" name="description" id="description" placeholder="Descripción del evento"
+            minlength="10" maxlength="200" required>
+          <label>Descripción</label>
+          <div *ngIf="description.touched && !description.valid">
+            <div *ngIf="description.errors.required">Descripcion es requerido</div>
+            <div *ngIf="description.errors.minlength">Descripcion debe ser de al menos {{description.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="event.location" #location="ngModel" type="text" name="location" id="location" placeholder="Lugar del evento"
+            minlength="10" maxlength="200" required>
+          <label>Lugar</label>
+          <div *ngIf="location.touched && !location.valid">
+            <div *ngIf="location.errors.required">Lugar es requerido</div>
+            <div *ngIf="location.errors.minlength">Lugar debe ser de al menos {{location.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="event.category" #category="ngModel" type="number" name="category" id="category" placeholder="Categoría del evento" required>
+          <label>Categoría</label>
+          <div *ngIf="category.touched && !category.valid">
+            <div *ngIf="category.errors.required">Categoría es requerido</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="event.date" #date="ngModel" type="date" name="date" id="date" placeholder="Fecha del evento" required>
+          <label>Fecha</label>
+          <div *ngIf="date.touched && !date.valid">
+            <div *ngIf="date.errors.required">Fecha es requerida</div>
+          </div>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light orange right">Guardar
+          <i class="material-icons">add_circle</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

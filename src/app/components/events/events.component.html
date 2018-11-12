@@ -1,0 +1,82 @@
+<div *ngIf="events?.length > 0;else noEvents">
+  <ul *ngFor="let event of events" class="collection">
+    <li class="collection-item">
+      <a href="" class="secondary-content">
+        <i *ngIf="editState == false" (click)="editEvent($event, event)" class="material-icons">mode_edit</i>
+        <i *ngIf="editState && eventToEdit.id == event.id" (click)="clearState($event)" class="material-icons">close</i>
+      </a>
+      <h2>
+        <strong>{{event.title}}</strong>
+      </h2>
+      <br>
+      <blockquote>{{event.description}}</blockquote>
+      <br>
+      <span class="my_tag amber">
+        <strong>Lugar:</strong>{{event.location}}</span>
+      <span class="my_tag amber">
+        <strong>Categoría:</strong>{{event.category}}</span>
+      <span class="my_tag amber">
+        <strong>Fecha:</strong>{{event.date}}</span>
+      <hr>
+      <div *ngIf="editState && eventToEdit.id == event.id" class="container-updateEvent">
+        <!-- TODO: form -->
+        <form (ngSubmit)="onUdpdateEvent(event)" class="col s6">
+          <div class="row">
+            <div class="input-field col s6">
+              <input [(ngModel)]="event.title" #title="ngModel" type="text" name="title" id="title" minlength="8"
+                maxlength="50" required/>
+              <label class="active">Título</label>
+              <div *ngIf="title.touched && !title.valid">
+                <div *ngIf="title.errors.required">Título es requerido</div>
+                <div *ngIf="title.errors.minlength">Título debe ser de al menos {{title.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="event.description" #description="ngModel" type="text" name="description" id="description"
+                minlength="10" maxlength="200" required/>
+              <label class="active">Descripción</label>
+              <div *ngIf="description.touched && !description.valid">
+                <div *ngIf="description.errors.required">Descripcion es requerido</div>
+                <div *ngIf="description.errors.minlength">Descripcion debe ser de al menos {{description.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="event.location" #location="ngModel" type="text" name="location" id="location"
+                minlength="10" maxlength="200" required/>
+              <label class="active">Lugar</label>
+              <div *ngIf="location.touched && !location.valid">
+                <div *ngIf="location.errors.required">Lugar es requerido</div>
+                <div *ngIf="location.errors.minlength">Lugar debe ser de al menos {{location.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="event.category" #category="ngModel" type="number" name="category" id="category" required/>
+              <label class="active">Categoría</label>
+              <div *ngIf="category.touched && !formador.valid">
+                <div *ngIf="category.errors.required">Categoría es requerido</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="event.date" #date="ngModel" type="date" name="date" id="date" required/>
+              <label class="active">Fecha</label>
+              <div *ngIf="date.touched && !date.valid">
+                <div *ngIf="date.errors.required">Fecha es requerida</div>
+              </div>
+            </div>
+            <button (click)="deleteEvent($event, event)" class="btn red right">Borrar
+              <i class="material-icons right">delete_forever</i>
+            </button>
+            <button type="submit" class="btn orange">Actualizar
+              <i class="material-icons right">save</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+<ng-template #noEvents>
+  <hr>
+  <h5>NO EXISTEN EVENTOS</h5>
+</ng-template>
+<app-event-add>
