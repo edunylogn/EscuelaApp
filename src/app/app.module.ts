@@ -25,6 +25,7 @@ import { UsersComponent } from './components/users/users.component';
 import { UserService } from './services/user.service';
 import { UserTypesComponent } from './components/user-types/user-types.component';
 import { UserTypeService } from './services/userType.service';
+import { PersonAddComponent } from './components/person-add/person-add.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserTypeService } from './services/userType.service';
     StudentSectionsComponent,
     UsersComponent,
     UserTypesComponent,
-    EventAddComponent
+    EventAddComponent,
+    PersonAddComponent
   ],
   imports: [
     BrowserModule,

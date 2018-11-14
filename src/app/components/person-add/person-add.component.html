@@ -1,0 +1,69 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Nueva Persona</span>
+    <form (ngSubmit)="onGuardarPerson(formNew)" #formNew="ngForm" class="col s6">
+      <div class="row">
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.name" #name="ngModel" type="text" name="name" id="name" minlength="2"
+            maxlength="100" required/>
+          <label class="active">Nombre Completo</label>
+          <div *ngIf="name.touched && !name.valid">
+            <div *ngIf="name.errors.required">Nombre es requerido</div>
+            <div *ngIf="name.errors.minlength">Nombre debe ser de al menos {{name.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.identification" #identification="ngModel" type="text" name="identification" id="identification"
+            minlength="09" maxlength="200" required/>
+          <label class="active">Identificación</label>
+          <div *ngIf="identification.touched && !identification.valid">
+            <div *ngIf="identification.errors.required">Identificación es requerida</div>
+            <div *ngIf="identification.errors.minlength">Identificación debe ser de al menos {{identification.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.address" #address="ngModel" type="text" name="address" id="address"
+            minlength="9" maxlength="200" required/>
+          <label class="active">Dirección</label>
+          <div *ngIf="address.touched && !address.valid">
+            <div *ngIf="address.errors.required">Dirección es requerida</div>
+            <div *ngIf="address.errors.minlength">Dirección debe ser de al menos {{address.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.gender" #gender="ngModel" type="number" name="gender" id="gender" required/>
+          <label class="active">Género</label>
+          <div *ngIf="gender.touched && !gender.valid">
+            <div *ngIf="gender.errors.required">Género es requerido</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.birthday" #birthday="ngModel" type="date" name="birthday" id="birthday" required/>
+          <label class="active">Fecha de Nacimiento</label>
+          <div *ngIf="birthday.touched && !birthday.valid">
+            <div *ngIf="birthday.errors.required">Fecha Nacimiento es requerida</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.phone" #phone="ngModel" type="number" name="phone" id="phone" required/>
+          <label class="active">Teléfono</label>
+          <div *ngIf="phone.touched && !phone.valid">
+            <div *ngIf="phone.errors.required">Teléfono es requerido</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.email" #email="ngModel" type="text" name="email" id="email"
+            minlength="5" maxlength="200" required/>
+          <label class="active">Email</label>
+          <div *ngIf="email.touched && !email.valid">
+            <div *ngIf="email.errors.required">Correo es requerida</div>
+            <div *ngIf="email.errors.minlength">Correo debe ser de al menos {{email.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light orange right">Guardar
+          <i class="material-icons">add_circle</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

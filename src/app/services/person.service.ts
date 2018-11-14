@@ -13,15 +13,15 @@ export class PersonService {
   personDoc: AngularFirestoreDocument<PersonInterface>;
 
   constructor(public afs: AngularFirestore) {
-    this.persons = afs.collection('persons').valueChanges();
-    // this.personsCollection = afs.collection<PersonInterface>('persons', ref => ref.orderBy('title', 'desc'));
-    // this.persons = this.personsCollection.snapshotChanges().pipe(
-    //   map(actions => actions.map(a => {
-    //     const data = a.payload.doc.data() as PersonInterface;
-    //     const id = a.payload.doc.id;
-    //     return { id, ...data };
-    //   }))
-    // );
+  //this.persons = afs.collection('persons').valueChanges();
+    this.personsCollection = afs.collection<PersonInterface>('persons', ref => ref.orderBy('name'));
+    this.persons = this.personsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as PersonInterface;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
   }
 
 

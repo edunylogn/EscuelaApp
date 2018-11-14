@@ -1,3 +1,102 @@
-<p>
-  persons works!
-</p>
+<div *ngIf="persons?.length > 0;else noPersons">
+  <ul *ngFor="let person of persons" class="collection">
+    <li class="collection-item">
+      <a href="" class="secondary-content">
+        <i *ngIf="editState == false" (click)="editPerson($event, person)" class="material-icons">mode_edit</i>
+        <i *ngIf="editState && personToEdit.id == person.id" (click)="clearState($event)" class="material-icons">close</i>
+      </a>
+      <h2>
+        <strong>{{person.name}}</strong>
+      </h2>
+      <br>
+      <blockquote>{{person.identification}}</blockquote>
+      <br>
+      <span class="my_tag amber">
+        <strong>Género:</strong>{{person.gender}}</span>
+      <span class="my_tag amber">
+        <strong>Direccion:</strong>{{person.address}}</span>
+      <span class="my_tag amber">
+        <strong>Fecha Nacimiento:</strong>{{person.birthday}}</span>
+      <span class="my_tag amber">
+        <strong>Teléfono:</strong>{{person.phone}}</span>
+      <span class="my_tag amber">
+        <strong>Email:</strong>{{person.email}}</span>  
+      <hr>
+      <div *ngIf="editState && personToEdit.id == person.id" class="container-updateperson">
+        <!-- TODO: form -->
+        <form (ngSubmit)="onUdpdateperson(person)" class="col s6">
+          <div class="row">
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.name" #name="ngModel" type="text" name="name-person" id="name-person" minlength="2"
+                maxlength="100" required/>
+              <label class="active">Nombre Completo</label>
+              <div *ngIf="name.touched && !name-person.valid">
+                <div *ngIf="name.errors.required">Nombre es requerido</div>
+                <div *ngIf="name.errors.minlength">Nombre debe ser de al menos {{name.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.identification" #identification="ngModel" type="text" name="identification-person" id="identification-person"
+                minlength="10" maxlength="200" required/>
+              <label class="active">Identificación</label>
+              <div *ngIf="identification.touched && !identification.valid">
+                <div *ngIf="identification.errors.required">Identificación es requerida</div>
+                <div *ngIf="identification.errors.minlength">Identificación debe ser de al menos {{identification.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.address" #address="ngModel" type="text" name="address-person" id="address-person"
+                minlength="9" maxlength="200" required/>
+              <label class="active">Lugar</label>
+              <div *ngIf="address.touched && !address.valid">
+                <div *ngIf="address.errors.required">Dirección es requerida</div>
+                <div *ngIf="address.errors.minlength">Dirección debe ser de al menos {{address.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.gender" #gender="ngModel" type="number" name="gender-person" id="gender-person" required/>
+              <label class="active">Género</label>
+              <div *ngIf="gender.touched && !gender.valid">
+                <div *ngIf="gender.errors.required">Género es requerido</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.birthday" #birthday="ngModel" type="date" name="birthday-person" id="birthday-person" required/>
+              <label class="active">Fecha de Nacimiento</label>
+              <div *ngIf="birthday.touched && !birthday.valid">
+                <div *ngIf="birthday.errors.required">Fecha Nacimiento es requerida</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.phone" #phone="ngModel" type="number" name="phone-person" id="phone-person" required/>
+              <label class="active">Teléfono</label>
+              <div *ngIf="phone.touched && !phone.valid">
+                <div *ngIf="phone.errors.required">Teléfono es requerido</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.email" #email="ngModel" type="text" name="email-person" id="email-person"
+                minlength="5" maxlength="200" required/>
+              <label class="active">Lugar</label>
+              <div *ngIf="email.touched && !emailP.valid">
+                <div *ngIf="email.errors.required">Correo es requerida</div>
+                <div *ngIf="email.errors.minlength">Correo debe ser de al menos {{email.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <button (click)="deleteperson($person, person)" class="btn red right">Borrar
+              <i class="material-icons right">delete_forever</i>
+            </button>
+            <button type="submit" class="btn orange">Actualizar
+              <i class="material-icons right">save</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+<ng-template #noPersons>
+  <hr>
+  <h5>NO EXISTEN PERSONAS</h5>
+</ng-template>
+<app-person-add>
