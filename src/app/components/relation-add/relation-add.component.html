@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Nueva Relación</span>
+    <form (ngSubmit)="onGuardarRelation(formNew)" #formNew="ngForm" class="col s6">
+      <div class="row">
+        <div class="input-field col s6">
+          <input [(ngModel)]="relation.studentIdentity" #studentidentity="ngModel" type="text" name="studentidentity" id="studentidentity" minlength="9"
+            maxlength="100" required/>
+          <label class="active">Identificación Estudiante</label>
+          <div *ngIf="studentidentity.touched && !studentidentity.valid">
+            <div *ngIf="studentidentity.errors.required">Identificación es requerido</div>
+            <div *ngIf="studentidentity.errors.minlength">Identificación debe ser de al menos {{studentidentity.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="relation.parentIdentity" #parentidentity="ngModel" type="text" name="parentidentity" id="parentidentity"
+            minlength="9" maxlength="100" required/>
+          <label class="active">Identificación Pariente</label>
+          <div *ngIf="parentidentity.touched && !parentidentity.valid">
+            <div *ngIf="parentidentity.errors.required">Identificación es requerida</div>
+            <div *ngIf="parentidentity.errors.minlength">Identificación debe ser de al menos {{parentidentity.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="relation.relationship" #relationship="ngModel" type="text" name="relationship" id="relationship"
+            minlength="2" maxlength="200" required/>
+          <label class="active">Relación</label>
+          <div *ngIf="relationship.touched && !relationship.valid">
+            <div *ngIf="relationship.errors.required">Relación es requerida</div>
+            <div *ngIf="relationship.errors.minlength">Relación debe ser de al menos {{relationship.errors.minlength.requiredLength}} caracteres.</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn waves-effect waves-light orange right">Guardar
+          <i class="material-icons">add_circle</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

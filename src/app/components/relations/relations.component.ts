@@ -10,7 +10,7 @@ import { RelationService } from 'src/app/services/relationship.service';
 export class RelationsComponent implements OnInit {
   relations: RelationInterface[];
   editState: boolean = false;
-  cursoToEdit: RelationInterface;
+  relationToEdit: RelationInterface;
   constructor(private relationService : RelationService ) { }
 
   ngOnInit() {
@@ -19,5 +19,23 @@ export class RelationsComponent implements OnInit {
       console.log(this.relations);
     });
   }
-
+  editRelation(e, relation: RelationInterface) {
+    e.preventDefault();
+    this.editState = true;
+    this.relationToEdit = relation;
+  }
+  onUdpdateRelation(relationToEdit: RelationInterface) {
+    this.relationService.updateRelation(relationToEdit);
+    this.clearState();
+  }
+  deleteRelation(e, relationToEdit: RelationInterface) {
+    this.relationService.deleteRelation(relationToEdit);
+    this.clearState();
+  }
+  clearState(e = null) {
+    if (e)
+      e.preventDefault();
+    this.editState = false;
+    this.relationToEdit = null;
+  }
 }

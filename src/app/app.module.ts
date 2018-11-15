@@ -26,6 +26,11 @@ import { UserService } from './services/user.service';
 import { UserTypesComponent } from './components/user-types/user-types.component';
 import { UserTypeService } from './services/userType.service';
 import { PersonAddComponent } from './components/person-add/person-add.component';
+import { RelationAddComponent } from './components/relation-add/relation-add.component';
+import { SectionAddComponent } from './components/section-add/section-add.component';
+import { StudentSectionAddComponent } from './components/student-section-add/student-section-add.component';
+import { UserTypeAddComponent } from './components/user-type-add/user-type-add.component';
+import { UserAddComponent } from './components/user-add/user-add.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,12 @@ import { PersonAddComponent } from './components/person-add/person-add.component
     UsersComponent,
     UserTypesComponent,
     EventAddComponent,
-    PersonAddComponent
+    PersonAddComponent,
+    RelationAddComponent,
+    SectionAddComponent,
+    StudentSectionAddComponent,
+    UserTypeAddComponent,
+    UserAddComponent
   ],
   imports: [
     BrowserModule,

@@ -14,15 +14,15 @@ export class RelationService {
   relationDoc: AngularFirestoreDocument<RelationInterface>;
 
   constructor(public afs: AngularFirestore) {
-    this.relations = afs.collection('relations').valueChanges();
-    // this.relationsCollection = afs.collection<RelationInterface>('relation', ref => ref.orderBy('title', 'desc'));
-    // this.relations = this.relationsCollection.snapshotChanges().pipe(
-    //   map(actions => actions.map(a => {
-    //     const data = a.payload.doc.data() as RelationInterface;
-    //     const id = a.payload.doc.id;
-    //     return { id, ...data };
-    //   }))
-    // );
+    // this.relations = afs.collection('relations').valueChanges();
+    this.relationsCollection = afs.collection<RelationInterface>('relation', ref => ref.orderBy('relationship'));
+    this.relations = this.relationsCollection.snapshotChanges().pipe(
+    map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as RelationInterface;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
   }
 
 

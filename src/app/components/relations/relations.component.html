@@ -1,3 +1,65 @@
-<p>
-  relations works!
-</p>
+<div *ngIf="relations?.length > 0;else noRelations">
+  <ul *ngFor="let relation of relations" class="collection">
+    <li class="collection-item">
+      <a href="" class="secondary-content">
+        <i *ngIf="editState == false" (click)="editRelation($event, relation)" class="material-icons">mode_edit</i>
+        <i *ngIf="editState && relationToEdit.id == relation.studentIdentity" (click)="clearState($event)" class="material-icons">close</i>
+      </a>
+      <h2>
+        <strong>{{relation.studentIdentity}}</strong>
+      </h2>
+      <br>
+      <blockquote>{{relation.relationship}}</blockquote>
+      <br>
+      <span class="my_tag amber">
+        <strong>Pariente:</strong>{{relation.parentIdentity}}</span>
+      <hr>
+      <div *ngIf="editState && relationToEdit.studentIdentity == relation.studentIdentity" class="container-updaterelation">
+        <!-- TODO: form -->
+        <form (ngSubmit)="onUdpdaterelation(relation)" class="col s6">
+          <div class="row">
+            <div class="input-field col s6">
+              <input [(ngModel)]="relation.studentIdentity" #studentidentity="ngModel" type="text" name="studentidentity" id="studentidentity" minlength="2"
+                maxlength="100" required/>
+              <label class="active">Identificación Estudiante</label>
+              <div *ngIf="studentidentity.touched && !studentidentity-person.valid">
+                <div *ngIf="studentidentity.errors.required">Identificación es requerido</div>
+                <div *ngIf="studentidentity.errors.minlength">Identificación debe ser de al menos {{studentidentity.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="relation.parentIdentity" #parentidentity="ngModel" type="text" name="parentidentity-person" id="parentidentity-person"
+                minlength="10" maxlength="200" required/>
+              <label class="active">Identificación Pariente</label>
+              <div *ngIf="parentidentity.touched && !parentidentity.valid">
+                <div *ngIf="parentidentity.errors.required">Identificación es requerida</div>
+                <div *ngIf="parentidentity.errors.minlength">Identificación debe ser de al menos {{parentidentity.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="relation.relationship" #relationship="ngModel" type="text" name="relationship" id="relationship"
+                minlength="9" maxlength="200" required/>
+              <label class="active">Relación</label>
+              <div *ngIf="relationship.touched && !relationship.valid">
+                <div *ngIf="relationship.errors.required">Relación es requerida</div>
+                <div *ngIf="relationship.errors.minlength">Relación debe ser de al menos {{relationship.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+           
+            <button (click)="deleterelation($relation, relation)" class="btn red right">Borrar
+              <i class="material-icons right">delete_forever</i>
+            </button>
+            <button type="submit" class="btn orange">Actualizar
+              <i class="material-icons right">save</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+<ng-template #noRelation>
+  <hr>
+  <h5>NO EXISTEN RELACIONES</h5>
+</ng-template>
+<app-relation-add>
