@@ -10,7 +10,7 @@ import { SectionInterface } from 'src/app/models/sectionInterface';
 export class SectionsComponent implements OnInit {
   sections: SectionInterface[];
   editState: boolean = false;
-  cursoToEdit: SectionInterface;
+  sectionToEdit: SectionInterface;
   constructor(private sectionService : SectionService) { }
 
   ngOnInit() {
@@ -18,6 +18,26 @@ export class SectionsComponent implements OnInit {
       this.sections=sections;
       console.log(this.sections);
     });
+  }
+
+  editSection(e, section: SectionInterface) {
+    e.preventDefault();
+    this.editState = true;
+    this.sectionToEdit = section;
+  }
+  onUdpdateSection(sectionToEdit: SectionInterface) {
+    this.sectionService.updateSection(this.sectionToEdit);
+    this.clearState();
+  }
+  deleteSection(e, sectionToEdit: SectionInterface) {
+    this.sectionService.deleteSection(sectionToEdit);
+    this.clearState();
+  }
+  clearState(e = null) {
+    if (e)
+      e.preventDefault();
+    this.editState = false;
+    this.sectionToEdit = null;
   }
 
 }

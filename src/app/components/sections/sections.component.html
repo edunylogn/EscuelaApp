@@ -1,3 +1,55 @@
-<p>
-  sections works!
-</p>
+<div *ngIf="sections?.length > 0;else noSections">
+  <ul *ngFor="let section of sections" class="collection">
+    <li class="collection-item">
+      <a href="" class="secondary-content">
+        <i *ngIf="editState == false" (click)="editSection($event, section)" class="material-icons">mode_edit</i>
+        <i *ngIf="editState && sectionToEdit.section == section.section" (click)="clearState($event)" class="material-icons">close</i>
+      </a>
+      <h2>
+        <strong>{{section.section}}</strong>
+      </h2>
+      <br>
+      <blockquote>{{section.idTeacher}}</blockquote>
+      <br>
+      <span class="my_tag amber">
+        <strong>seccion:</strong>{{section.section}}</span>
+      <hr>
+      <div *ngIf="editState && sectionToEdit.section == section.section" class="container-updatesection">
+        <!-- TODO: form -->
+        <form (ngSubmit)="onUdpdateSection(section)" class="col s6">
+          <div class="row">
+            <div class="input-field col s6">
+              <input [(ngModel)]="section.section" #section="ngModel" type="text" name="section" id="section" minlength="2"
+                maxlength="100" required/>
+              <label class="active">Sección</label>
+              <div *ngIf="section.touched && !section.valid">
+                <div *ngIf="section.errors.required">Sección es requerido</div>
+                <div *ngIf="section.errors.minlength">Sección debe ser de al menos {{section.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="section.idTeacher" #idTeacher="ngModel" type="text" name="idTeacher" id="idTeacher"
+                minlength="09" maxlength="200" required/>
+              <label class="active">Identificación Profesor</label>
+              <div *ngIf="idTeacher.touched && !idTeacher.valid">
+                <div *ngIf="idTeacher.errors.required">Identificación de Profesor es requerida</div>
+                <div *ngIf="idTeacher.errors.minlength">Identificación de Profesor debe ser de al menos {{idTeacher.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <button (click)="deleteSection($section, section)" class="btn red right">Borrar
+              <i class="material-icons right">delete_forever</i>
+            </button>
+            <button type="submit" class="btn orange">Actualizar
+              <i class="material-icons right">save</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+<ng-template #noSection>
+  <hr>
+  <h5>NO EXISTEN SECCIONES</h5>
+</ng-template>
+<app-section-add>

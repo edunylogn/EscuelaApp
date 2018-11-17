@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { SectionService } from '../../services/section.service';
+import { SectionInterface } from '../../models/sectionInterface';
 
 @Component({
   selector: 'app-section-add',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SectionAddComponent implements OnInit {
 
-  constructor() { }
+  section: SectionInterface = {
+    section: '',
+    idTeacher: '',
+  }
+  constructor(private sectionService : SectionService) { }
 
   ngOnInit() {
+  }
+
+  onGuardarSection(myForm: NgForm) {
+    if (myForm.valid === true) {
+      this.sectionService.addSection(this.section);
+      myForm.resetForm();
+    } else {
+      console.log('Algo va mal');
+    }
   }
 
 }

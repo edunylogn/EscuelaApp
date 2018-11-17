@@ -14,15 +14,15 @@ export class SectionService {
   sectionDoc: AngularFirestoreDocument<SectionInterface>;
 
   constructor(public afs: AngularFirestore) {
-    this.sections = afs.collection('sections').valueChanges();
-    // this.sectionsCollection = afs.collection<SectionInterface>('section', ref => ref.orderBy('title', 'desc'));
-    // this.sections = this.sectionsCollection.snapshotChanges().pipe(
-    //   map(actions => actions.map(a => {
-    //     const data = a.payload.doc.data() as SectionInterface;
-    //     const id = a.payload.doc.id;
-    //     return { id, ...data };
-    //   }))
-    // );
+    //this.sections = afs.collection('sections').valueChanges();
+     this.sectionsCollection = afs.collection<SectionInterface>('sections', ref => ref.orderBy('section', 'desc'));
+     this.sections = this.sectionsCollection.snapshotChanges().pipe(
+       map(actions => actions.map(a => {
+         const data = a.payload.doc.data() as SectionInterface;
+         const id = a.payload.doc.id;
+         return { id, ...data };
+       }))
+     );
   }
 
 
