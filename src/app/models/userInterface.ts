@@ -3,4 +3,5 @@ export interface UserInterface{
     password?: string;
     idPerson?: string;
     userType?: number;
+    email?: string;
 }

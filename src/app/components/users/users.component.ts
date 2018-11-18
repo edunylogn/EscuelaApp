@@ -11,7 +11,7 @@ export class UsersComponent implements OnInit {
 
   users: UserInterface[];
   editState: boolean = false;
-  cursoToEdit: UserInterface;
+  userToEdit: UserInterface;
   constructor(private userService : UserService) { }
 
   ngOnInit() {
@@ -21,4 +21,23 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  editUser(e, user: UserInterface) {
+    e.preventDefault();
+    this.editState = true;
+    this.userToEdit = user;
+  }
+  onUdpdateUser(userToEdit: UserInterface) {
+    this.userService.updateUser(userToEdit);
+    this.clearState();
+  }
+  deleteUser(e, userToEdit: UserInterface) {
+    this.userService.deleteUser(userToEdit);
+    this.clearState();
+  }
+  clearState(e = null) {
+    if (e)
+      e.preventDefault();
+    this.editState = false;
+    this.userToEdit = null;
+  }
 }
