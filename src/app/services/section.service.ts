@@ -15,7 +15,7 @@ export class SectionService {
 
   constructor(public afs: AngularFirestore) {
     //this.sections = afs.collection('sections').valueChanges();
-     this.sectionsCollection = afs.collection<SectionInterface>('sections', ref => ref.orderBy('section', 'desc'));
+     this.sectionsCollection = afs.collection<SectionInterface>('sections', ref => ref.orderBy('idsection', 'desc'));
      this.sections = this.sectionsCollection.snapshotChanges().pipe(
        map(actions => actions.map(a => {
          const data = a.payload.doc.data() as SectionInterface;
@@ -34,11 +34,11 @@ export class SectionService {
     this.sectionsCollection.add(section);
   }
   deleteSection(section: SectionInterface) {
-    this.sectionDoc = this.afs.doc(`sections/${section.section}`);
+    this.sectionDoc = this.afs.doc(`sections/${section.idsection}`);
     this.sectionDoc.delete();
   }
   updateSection(section: SectionInterface) {
-    this.sectionDoc = this.afs.doc(`sections/${section.section}`);
+    this.sectionDoc = this.afs.doc(`sections/${section.idsection}`);
     this.sectionDoc.update(section);
   }
 }

@@ -4,12 +4,12 @@
     <form (ngSubmit)="onGuardarSection(formNew)" #formNew="ngForm" class="col s6">
       <div class="row">
         <div class="input-field col s6">
-          <input [(ngModel)]="section.section" #section="ngModel" type="text" name="section" id="section" minlength="2"
+          <input [(ngModel)]="section.idsection" #idsection="ngModel" type="text" name="idsection" id="idsection" minlength="2"
             maxlength="100" required/>
           <label class="active">Sección</label>
-          <div *ngIf="section.touched && !section.valid">
-            <div *ngIf="section.errors.required">Sección es requerido</div>
-            <div *ngIf="section.errors.minlength">Sección debe ser de al menos {{section.errors.minlength.requiredLength}} caracteres.</div>
+          <div *ngIf="idsection.touched && !idsection.valid">
+            <div *ngIf="idsection.errors.required">Sección es requerido</div>
+            <div *ngIf="idsection.errors.minlength">Sección debe ser de al menos {{idsection.errors.minlength.requiredLength}} caracteres.</div>
           </div>
         </div>
         <div class="input-field col s6">

@@ -1,4 +1,4 @@
 export interface UserTypeInterface {
-    userType?: string;
-    description?: string;
+    id?: string | number;
+    name?: string;
 }

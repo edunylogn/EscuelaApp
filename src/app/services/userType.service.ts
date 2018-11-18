@@ -14,15 +14,15 @@ export class UserTypeService {
   userTypeDoc: AngularFirestoreDocument<UserTypeInterface>;
 
   constructor(public afs: AngularFirestore) {
-    this.userTypes = afs.collection('userTypes').valueChanges();
-    // this.userTypeCollection = afs.collection<UserTypeInterface>('userType', ref => ref.orderBy('title', 'desc'));
-    // this.userTypes = this.userTypeCollection.snapshotChanges().pipe(
-    //   map(actions => actions.map(a => {
-    //     const data = a.payload.doc.data() as UserTypeInterface;
-    //     const id = a.payload.doc.id;
-    //     return { id, ...data };
-    //   }))
-    // );
+    //this.userTypes = afs.collection('userTypes').valueChanges();
+     this.userTypeCollection = afs.collection<UserTypeInterface>('userTypes', ref => ref.orderBy('name', 'desc'));
+     this.userTypes = this.userTypeCollection.snapshotChanges().pipe(
+       map(actions => actions.map(a => {
+         const data = a.payload.doc.data() as UserTypeInterface;
+         const id = a.payload.doc.id;
+         return { id, ...data };
+       }))
+     );
   }
 
 
@@ -34,11 +34,11 @@ export class UserTypeService {
     this.userTypeCollection.add(userType);
   }
   deleteUserType(userType: UserTypeInterface) {
-    this.userTypeDoc = this.afs.doc(`userTypes/${userType.userType}`);
+    this.userTypeDoc = this.afs.doc(`userTypes/${userType.id}`);
     this.userTypeDoc.delete();
   }
   updateUserType(userType: UserTypeInterface) {
-    this.userTypeDoc = this.afs.doc(`userTypes/${userType.userType}`);
+    this.userTypeDoc = this.afs.doc(`userTypes/${userType.id}`);
     this.userTypeDoc.update(userType);
   }
 }

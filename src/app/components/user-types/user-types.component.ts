@@ -10,7 +10,7 @@ import { UserTypeService } from 'src/app/services/userType.service';
 export class UserTypesComponent implements OnInit {
   userTypes: UserTypeInterface[];
   editState: boolean = false;
-  cursoToEdit: UserTypeInterface;
+  userTypeToEdit: UserTypeInterface;
   constructor(private userTypeService : UserTypeService) { }
 
   ngOnInit() {
@@ -20,4 +20,23 @@ export class UserTypesComponent implements OnInit {
     });
   }
 
+  editUserType(e, userType: UserTypeInterface) {
+    e.preventDefault();
+    this.editState = true;
+    this.userTypeToEdit = userType;
+  }
+  onUdpdateUserType(userTypeToEdit: UserTypeInterface) {
+    this.userTypeService.updateUserType(userTypeToEdit);
+    this.clearState();
+  }
+  deleteUserType(e, userTypeToEdit: UserTypeInterface) {
+    this.userTypeService.deleteUserType(userTypeToEdit);
+    this.clearState();
+  }
+  clearState(e = null) {
+    if (e)
+      e.preventDefault();
+    this.editState = false;
+    this.userTypeToEdit = null;
+  }
 }

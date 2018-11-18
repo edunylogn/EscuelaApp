@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(public afs: AngularFirestore) {
     //this.users = afs.collection('users').valueChanges();
-     this.usersCollection = afs.collection<UserInterface>('user', ref => ref.orderBy('username', 'desc'));
+     this.usersCollection = afs.collection<UserInterface>('users', ref => ref.orderBy('username', 'desc'));
      this.users = this.usersCollection.snapshotChanges().pipe(
        map(actions => actions.map(a => {
          const data = a.payload.doc.data() as UserInterface;

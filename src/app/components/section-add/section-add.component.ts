@@ -11,7 +11,7 @@ import { SectionInterface } from '../../models/sectionInterface';
 export class SectionAddComponent implements OnInit {
 
   section: SectionInterface = {
-    section: '',
+    idsection: '',
     idTeacher: '',
   }
   constructor(private sectionService : SectionService) { }
