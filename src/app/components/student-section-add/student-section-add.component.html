@@ -1,3 +1,31 @@
-<p>
-  student-section-add works!
-</p>
+<div class="card">
+    <div class="card-content">
+      <span class="card-title">Nueva Estudiante en Sección</span>
+      <form (ngSubmit)="onGuardarStudentSection(formNew)" #formNew="ngForm" class="col s6">
+          <div class="row">
+              <div class="input-field col s6">
+                <input [(ngModel)]="studentSection.idSection" #idSection="ngModel" type="text" name="idSection" id="idSection" minlength="2"
+                  maxlength="100" required/>
+                <label class="active">Sección</label>
+                <div *ngIf="idSection.touched && !idSection.valid">
+                  <div *ngIf="idSection.errors.required">Sección es requerido</div>
+                  <div *ngIf="idSection.errors.minlength">Sección debe ser de al menos {{idSection.errors.minlength.requiredLength}} caracteres.</div>
+                </div>
+              </div>
+              <div class="input-field col s6">
+                <input [(ngModel)]="studentSection.idStudent" #idStudent="ngModel" type="text" name="idStudent" id="idStudent"
+                  minlength="09" maxlength="200" required/>
+                <label class="active">Identificación Estudiante</label>
+                <div *ngIf="idStudent.touched && !idStudent.valid">
+                  <div *ngIf="idStudent.errors.required">Identificación de Estudiante es requerida</div>
+                  <div *ngIf="idStudent.errors.minlength">Identificación de Estudiante debe ser de al menos {{idStudent.errors.minlength.requiredLength}} caracteres.</div>
+                </div>
+              </div>
+
+          <button type="submit" class="btn waves-effect waves-light orange right">Guardar
+            <i class="material-icons">add_circle</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -10,7 +10,7 @@ import { StudentSectionInterface } from 'src/app/models/studentSectionInterface'
 export class StudentSectionsComponent implements OnInit {
   studentSections: StudentSectionInterface[];
   editState: boolean = false;
-  cursoToEdit: StudentSectionInterface;
+  studentSectionToEdit: StudentSectionInterface;
   constructor(private studentSectionService : StudentSectionService) { }
 
   ngOnInit() {
@@ -20,4 +20,23 @@ export class StudentSectionsComponent implements OnInit {
     });
   }
 
+  editSection(e, studentSection: StudentSectionInterface) {
+    e.preventDefault();
+    this.editState = true;
+    this.studentSectionToEdit = studentSection;
+  }
+  onUdpdateStudentSection(studentSectionToEdit: StudentSectionInterface) {
+    this.studentSectionService.updateStudentSection(this.studentSectionToEdit);
+    this.clearState();
+  }
+  deleteStudentSection(e, studentSectionToEdit: StudentSectionInterface) {
+    this.studentSectionService.deleteStudentSection(studentSectionToEdit);
+    this.clearState();
+  }
+  clearState(e = null) {
+    if (e)
+      e.preventDefault();
+    this.editState = false;
+    this.studentSectionToEdit = null;
+  }
 }
