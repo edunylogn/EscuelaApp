@@ -1,14 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
-import { FormsModule } from '@angular/forms';
-import { EventService } from './services/event.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouteReuseStrategy } from '@angular/router';
-import { CustomReuseStrategy } from './reuse-strategy';
-
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core/core.module';
+import { CustomReuseStrategy } from './core/reuse-strategy';
+import { AppRoutingModule } from './core/app-routing.module';
+import { environment } from '../environments/environment';
+import { EventService } from './services/event.service';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EventsComponent } from './components/events/events.component';
@@ -31,6 +32,14 @@ import { SectionAddComponent } from './components/section-add/section-add.compon
 import { StudentSectionAddComponent } from './components/student-section-add/student-section-add.component';
 import { UserTypeAddComponent } from './components/user-type-add/user-type-add.component';
 import { UserAddComponent } from './components/user-add/user-add.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { NotificationMessageComponent } from './components/notification-message/notification-message.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { MainNavComponent } from './components/main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -49,14 +58,28 @@ import { UserAddComponent } from './components/user-add/user-add.component';
     SectionAddComponent,
     StudentSectionAddComponent,
     UserTypeAddComponent,
-    UserAddComponent
+    UserAddComponent,
+    NotificationMessageComponent,
+    UserProfileComponent,
+    UserFormComponent,
+    NotFoundComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'EscuelaTCU'),
     AngularFirestoreModule,
-    FormsModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     EventService,
@@ -66,7 +89,7 @@ import { UserAddComponent } from './components/user-add/user-add.component';
     StudentSectionService,
     UserService,
     UserTypeService,
-    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,3 @@
-import { Timestamp } from "rxjs";
-
 export interface PersonInterface {
     identification?: string;
     name?: string;
