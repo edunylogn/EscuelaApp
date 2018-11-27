@@ -28,6 +28,11 @@ export class EventService {
   getEvents() {
     return this.events;
   }
+
+  getEventsBySection() {
+    return this.events;
+  }
+
   addEvent(event: EventInterface) {
     console.log('NEW EVENT');
     this.eventsCollection.add(event);

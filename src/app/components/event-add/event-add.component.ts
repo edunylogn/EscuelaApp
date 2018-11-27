@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { startOfDay } from 'date-fns';
 import { EventService } from '../../services/event.service';
 import { EventInterface } from '../../models/eventInterface';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
@@ -13,9 +14,9 @@ export class EventAddComponent implements OnInit {
   event: EventInterface = {
     title: '',
     description: '',
-    location: '',
-    category: null,
-    date: ''
+    date: '',
+    creator: '',
+    section: ''
   }
   constructor(private eventService: EventService) { }
 

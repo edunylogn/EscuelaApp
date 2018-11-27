@@ -34,11 +34,11 @@ export class UserService {
     this.usersCollection.add(user);
   }
   deleteUser(user: UserInterface) {
-    this.userDoc = this.afs.doc(`users/${user.username}`);
+    this.userDoc = this.afs.doc(`users/${user.id}`);
     this.userDoc.delete();
   }
   updateUser(user: UserInterface) {
-    this.userDoc = this.afs.doc(`users/${user.username}`);
+    this.userDoc = this.afs.doc(`users/${user.id}`);
     this.userDoc.update(user);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
-import { StudentSectionService } from '../../services/studentSection.service';
-import { StudentSectionInterface } from '../../models/studentSectionInterface';
+import { PersonSectionService } from '../../services/personSection.service';
+import { PersonSectionInterface } from '../../models/personSectionInterface';
 
 @Component({
   selector: 'app-student-section-add',
@@ -9,11 +9,11 @@ import { StudentSectionInterface } from '../../models/studentSectionInterface';
   styleUrls: ['./student-section-add.component.less']
 })
 export class StudentSectionAddComponent implements OnInit {
-  studentSection: StudentSectionInterface = {
+  studentSection: PersonSectionInterface = {
     idSection: '',
     idStudent: '',
   }
-  constructor(private studentSectionService : StudentSectionService) { }
+  constructor(private studentSectionService : PersonSectionService) { }
 
   ngOnInit() {
   }

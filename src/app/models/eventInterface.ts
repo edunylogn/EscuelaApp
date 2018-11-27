@@ -1,8 +1,8 @@
 export interface EventInterface {
     id?: string | number;
+    date?: any;
     title?: string;
     description?: string;
-    location?: string;
-    category?: number;
-    date?: any;
+    creator?: string;
+    section?: string;
 }

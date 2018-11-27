@@ -1,23 +1,13 @@
-<div *ngIf="!(auth.user | async); else alreadyLoggedIn">
-
+<div *ngIf="!(auth.user | async); else authenticated">
   <h3>Social Login</h3>
-
-    <button (click)="signInWithGoogle()" class="button btn-social btn-google">
-      <i class="fa fa-google fa-lg"></i> Connect Google
-    </button>
-
-    <button (click)="signInWithFacebook()" class="button  btn-social btn-facebook" disabled>
-      <i class="fa fa-facebook fa-lg"></i> Connect Facebook
-    </button>
-
-    <hr>
-
-    <user-form></user-form>
-
+  <button (click)="signInWithGoogle()" class="btn-small">Connect Google</button> &nbsp;
+  <button (click)="signInWithFacebook()" class="btn-small">Connect Facebook</button>
+  <hr>
+  <user-form></user-form>
 </div>
 
-<ng-template #alreadyLoggedIn>
-  <p class="text-success">
-    You are logged in <i class="fa fa-thumbs-up"></i>
-  </p>
+<ng-template #authenticated>
+  <div class="col m8 s8 offset-m2 offset-s2 center" *ngIf="auth.user | async as user">
+    <h3>Bienvenido {{ user.username }}</h3>
+  </div>
 </ng-template>

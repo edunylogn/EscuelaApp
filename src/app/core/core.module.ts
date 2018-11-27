@@ -2,16 +2,15 @@ import { NgModule } from '@angular/core';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
 import { NotifyService } from '../services/notify.service';
+import { Permissions } from './permissions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { CustomMaterialModule } from './material.module';
 
 @NgModule({
   imports: [
     AngularFireAuthModule,
-    AngularFirestoreModule,
-    CustomMaterialModule
+    AngularFirestoreModule
   ],
-  providers: [AuthService, AuthGuard, NotifyService]
+  providers: [AuthService, AuthGuard, Permissions, NotifyService]
 })
 export class CoreModule { }

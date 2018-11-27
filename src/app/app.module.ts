@@ -21,16 +21,13 @@ import { RelationService } from './services/relationship.service';
 import { SectionsComponent } from './components/sections/sections.component';
 import { SectionService } from './services/section.service';
 import { StudentSectionsComponent } from './components/student-sections/student-sections.component';
-import { StudentSectionService } from './services/studentSection.service';
+import { PersonSectionService } from './services/personSection.service';
 import { UsersComponent } from './components/users/users.component';
 import { UserService } from './services/user.service';
-import { UserTypesComponent } from './components/user-types/user-types.component';
-import { UserTypeService } from './services/userType.service';
 import { PersonAddComponent } from './components/person-add/person-add.component';
 import { RelationAddComponent } from './components/relation-add/relation-add.component';
 import { SectionAddComponent } from './components/section-add/section-add.component';
 import { StudentSectionAddComponent } from './components/student-section-add/student-section-add.component';
-import { UserTypeAddComponent } from './components/user-type-add/user-type-add.component';
 import { UserAddComponent } from './components/user-add/user-add.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -38,7 +35,11 @@ import { NotificationMessageComponent } from './components/notification-message/
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatDialogModule } from '@angular/material';
+// Calendar
+import { CalendarComponent, CalendarEventModalComponent } from './components/calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({
@@ -51,19 +52,19 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     SectionsComponent,
     StudentSectionsComponent,
     UsersComponent,
-    UserTypesComponent,
     EventAddComponent,
     PersonAddComponent,
     RelationAddComponent,
     SectionAddComponent,
     StudentSectionAddComponent,
-    UserTypeAddComponent,
     UserAddComponent,
     NotificationMessageComponent,
     UserProfileComponent,
     UserFormComponent,
     NotFoundComponent,
-    MainNavComponent
+    MainNavComponent,
+    CalendarComponent,
+    CalendarEventModalComponent
   ],
   imports: [
     BrowserModule,
@@ -79,16 +80,21 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
+  entryComponents: [CalendarEventModalComponent],
   providers: [
     EventService,
     PersonService,
     RelationService,
     SectionService,
-    StudentSectionService,
+    PersonSectionService,
     UserService,
-    UserTypeService,
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
   ],
   bootstrap: [AppComponent]

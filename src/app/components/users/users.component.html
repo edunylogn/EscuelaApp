@@ -3,10 +3,10 @@
     <li class="collection-item">
       <a href="" class="secondary-content">
         <i *ngIf="editState == false" (click)="editUser($event, user)" class="material-icons">mode_edit</i>
-        <i *ngIf="editState && userToEdit.id == user.username" (click)="clearState($event)" class="material-icons">close</i>
+        <i *ngIf="editState && userToEdit.id == user.id" (click)="clearState($event)" class="material-icons">close</i>
       </a>
       <h2>
-        <strong>{{user.username}}</strong>
+        <strong>{{user.email}}</strong>
       </h2>
       <br>
       <blockquote>{{user.idPerson}}</blockquote>
@@ -80,4 +80,3 @@
   <hr>
   <h5>NO EXISTEN USUARIOS</h5>
 </ng-template>
-<app-user-add>

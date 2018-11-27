@@ -1,24 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { EventInterface } from '../../models/eventInterface';
 import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-events',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.less']
 })
 export class EventsComponent implements OnInit {
   events: EventInterface[];
   editState: boolean = false;
+  prevLength: Number = 0;
   eventToEdit: EventInterface;
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.eventService.getEvents().subscribe(events => {
       this.events = events;
+      this.cd.markForCheck();
       console.log(this.events);
     });
   }
+
+  // ngDoCheck() {
+  //   this.cd.markForCheck();
+  // }
 
   editEvent(e, event: EventInterface) {
     e.preventDefault();

@@ -22,6 +22,10 @@ export class UserProfileComponent {
     await this.afterSignIn();
   }
 
+  ngAfterViewInit() {
+    console.log(this.auth);
+  }
+
   /// Shared
 
   private afterSignIn() {

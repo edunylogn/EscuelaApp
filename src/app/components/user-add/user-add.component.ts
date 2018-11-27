@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { UserInterface } from '../../models/userInterface';
+import { SectionInterface } from '../../models/sectionInterface';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
@@ -17,6 +18,8 @@ export class UserAddComponent implements OnInit {
     email: '',
     userType: null,
   }
+
+  sectionOptions: SectionInterface[]
 
   constructor(private userService: UserService) { }
 

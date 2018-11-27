@@ -1,24 +1,24 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { StudentSectionInterface } from '../models/studentSectionInterface';
+import { PersonSectionInterface } from '../models/personSectionInterface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentSectionService {
-  studentSectionsCollection: AngularFirestoreCollection<StudentSectionInterface>;
-  studentSections: Observable<StudentSectionInterface[]>;
-  studentSectionDoc: AngularFirestoreDocument<StudentSectionInterface>;
+export class PersonSectionService {
+  studentSectionsCollection: AngularFirestoreCollection<PersonSectionInterface>;
+  studentSections: Observable<PersonSectionInterface[]>;
+  studentSectionDoc: AngularFirestoreDocument<PersonSectionInterface>;
 
   constructor(public afs: AngularFirestore) {
     //this.studentSections = afs.collection('studentSections').valueChanges();
-     this.studentSectionsCollection = afs.collection<StudentSectionInterface>('studentSections', ref => ref.orderBy('idSection', 'desc'));
+     this.studentSectionsCollection = afs.collection<PersonSectionInterface>('studentSections', ref => ref.orderBy('idSection', 'desc'));
      this.studentSections = this.studentSectionsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-         const data = a.payload.doc.data() as StudentSectionInterface;
+         const data = a.payload.doc.data() as PersonSectionInterface;
          const id = a.payload.doc.id;
          return { id, ...data };
        }))
@@ -29,15 +29,15 @@ export class StudentSectionService {
   getStudentSections() {
     return this.studentSections;
   }
-  addStudentSection(studentSection: StudentSectionInterface) {
+  addStudentSection(studentSection: PersonSectionInterface) {
     console.log('NEW STUDENTSECTION');
     this.studentSectionsCollection.add(studentSection);
   }
-  deleteStudentSection(studentSection: StudentSectionInterface) {
+  deleteStudentSection(studentSection: PersonSectionInterface) {
     this.studentSectionDoc = this.afs.doc(`studentSections/${studentSection.idStudent,studentSection.idSection}`);
     this.studentSectionDoc.delete();
   }
-  updateStudentSection(studentSection: StudentSectionInterface) {
+  updateStudentSection(studentSection: PersonSectionInterface) {
     this.studentSectionDoc = this.afs.doc(`studentSections/${studentSection.idStudent,studentSection.idSection}`);
     this.studentSectionDoc.update(studentSection);
   }

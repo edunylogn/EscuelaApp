@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentSectionService } from 'src/app/services/studentSection.service';
-import { StudentSectionInterface } from 'src/app/models/studentSectionInterface';
+import { PersonSectionService } from 'src/app/services/personSection.service';
+import { PersonSectionInterface } from 'src/app/models/personSectionInterface';
 
 @Component({
   selector: 'app-student-sections',
@@ -8,10 +8,10 @@ import { StudentSectionInterface } from 'src/app/models/studentSectionInterface'
   styleUrls: ['./student-sections.component.less']
 })
 export class StudentSectionsComponent implements OnInit {
-  studentSections: StudentSectionInterface[];
+  studentSections: PersonSectionInterface[];
   editState: boolean = false;
-  studentSectionToEdit: StudentSectionInterface;
-  constructor(private studentSectionService : StudentSectionService) { }
+  studentSectionToEdit: PersonSectionInterface;
+  constructor(private studentSectionService : PersonSectionService) { }
 
   ngOnInit() {
     this.studentSectionService.getStudentSections().subscribe(studentSections=>{
@@ -20,16 +20,16 @@ export class StudentSectionsComponent implements OnInit {
     });
   }
 
-  editSection(e, studentSection: StudentSectionInterface) {
+  editSection(e, studentSection: PersonSectionInterface) {
     e.preventDefault();
     this.editState = true;
     this.studentSectionToEdit = studentSection;
   }
-  onUdpdateStudentSection(studentSectionToEdit: StudentSectionInterface) {
+  onUdpdateStudentSection(studentSectionToEdit: PersonSectionInterface) {
     this.studentSectionService.updateStudentSection(this.studentSectionToEdit);
     this.clearState();
   }
-  deleteStudentSection(e, studentSectionToEdit: StudentSectionInterface) {
+  deleteStudentSection(e, studentSectionToEdit: PersonSectionInterface) {
     this.studentSectionService.deleteStudentSection(studentSectionToEdit);
     this.clearState();
   }

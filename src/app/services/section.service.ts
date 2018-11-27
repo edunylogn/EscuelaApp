@@ -34,11 +34,11 @@ export class SectionService {
     this.sectionsCollection.add(section);
   }
   deleteSection(section: SectionInterface) {
-    this.sectionDoc = this.afs.doc(`sections/${section.idsection}`);
+    this.sectionDoc = this.afs.doc(`sections/${section.idSection}`);
     this.sectionDoc.delete();
   }
   updateSection(section: SectionInterface) {
-    this.sectionDoc = this.afs.doc(`sections/${section.idsection}`);
+    this.sectionDoc = this.afs.doc(`sections/${section.idSection}`);
     this.sectionDoc.update(section);
   }
 }

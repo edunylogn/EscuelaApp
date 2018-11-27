@@ -3,15 +3,15 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async) && (auth.user | async)">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item routerLink="events">Eventos</a>
-      <a mat-list-item routerLink="persons">Personas</a>
-      <a mat-list-item routerLink="relations">Relaciones</a>
-      <a mat-list-item routerLink="sections">Secciones</a>
-      <a mat-list-item routerLink="student-sections">Secciones por Estudiante</a>
-      <a mat-list-item routerLink="users">Usuarios</a>
-      <a mat-list-item routerLink="user-types">Tipos de Usuarios</a>
+    <mat-toolbar *ngIf="auth.user | async as user">{{ user.username }}</mat-toolbar>
+    <mat-nav-list *ngIf="auth.user | async as user">
+      <a *ngIf="activeLink(user, 'calendar')" mat-list-item routerLink="calendar">Calendario</a>
+      <a *ngIf="activeLink(user, 'events')" mat-list-item routerLink="events">Eventos</a>
+      <a *ngIf="activeLink(user, 'persons')" mat-list-item routerLink="persons">Personas</a>
+      <a *ngIf="activeLink(user, 'relations')" mat-list-item routerLink="relations">Relaciones</a>
+      <a *ngIf="activeLink(user, 'sections')" mat-list-item routerLink="sections">Secciones</a>
+      <a *ngIf="activeLink(user, 'student-sections')" mat-list-item routerLink="student-sections">Secciones por Estudiante</a>
+      <a *ngIf="activeLink(user, 'users')" mat-list-item routerLink="users">Usuarios</a>
       <a mat-list-item (click)="logout($event)" href="#">Salir</a>
     </mat-nav-list>
   </mat-sidenav>
