@@ -5,13 +5,11 @@
           <i *ngIf="editState == false" (click)="editStudentSection($event, studentSection)" class="material-icons">mode_edit</i>
           <i *ngIf="editState && studentSectionToEdit.idSection == studentSection.idSection" (click)="clearState($event)" class="material-icons">close</i>
         </a>
-        <h2>
+        <h5>
           <strong>{{studentSection.idSection}}</strong>
-        </h2>
-        <br>
+        </h5>
         <blockquote>{{studentSection.idStudent}}</blockquote>
-        <br>
-        <span class="my_tag amber">
+        <span class="my_tag teal lighten-5">
           <strong>Seccion:</strong>{{studentSection.idSection}}</span>
         <hr>
         <div *ngIf="editState && studentSectionToEdit.idSection == studentSection.idSection" class="container-updatestudentsection">

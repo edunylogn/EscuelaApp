@@ -1,30 +1,29 @@
 <div *ngIf="sections?.length > 0;else noSections">
+  <h2>Secciones</h2>
   <ul *ngFor="let section of sections" class="collection">
     <li class="collection-item">
       <a href="" class="secondary-content">
         <i *ngIf="editState == false" (click)="editSection($event, section)" class="material-icons">mode_edit</i>
-        <i *ngIf="editState && sectionToEdit.idsection == section.idsection" (click)="clearState($event)" class="material-icons">close</i>
+        <i *ngIf="editState && sectionToEdit.idSection == section.idSection" (click)="clearState($event)" class="material-icons">close</i>
       </a>
-      <h2>
-        <strong>{{section.idsection}}</strong>
-      </h2>
-      <br>
+      <h5>
+        <strong>{{section.idSection}}</strong>
+      </h5>
       <blockquote>{{section.idTeacher}}</blockquote>
-      <br>
-      <span class="my_tag amber">
-        <strong>seccion:</strong>{{section.idsection}}</span>
+      <span class="my_tag teal lighten-5">
+        <strong>seccion:</strong>{{section.idSection}}</span>
       <hr>
-      <div *ngIf="editState && sectionToEdit.idsection == section.idsection" class="container-updatesection">
+      <div *ngIf="editState && sectionToEdit.idSection == section.idSection" class="container-updatesection">
         <!-- TODO: form -->
         <form (ngSubmit)="onUdpdateSection(section)" class="col s6">
           <div class="row">
             <div class="input-field col s6">
-              <input [(ngModel)]="section.idsection" #idsection="ngModel" type="text" name="idsection" id="idsection" minlength="2"
+              <input [(ngModel)]="section.idSection" #idSection="ngModel" type="text" name="idSection" id="idSection" minlength="2"
                 maxlength="100" required/>
               <label class="active">Sección</label>
-              <div *ngIf="idsection.touched && !idsection.valid">
-                <div *ngIf="idsection.errors.required">Sección es requerido</div>
-                <div *ngIf="idsection.errors.minlength">Sección debe ser de al menos {{idsection.errors.minlength.requiredLength}} caracteres.</div>
+              <div *ngIf="idSection.touched && !idSection.valid">
+                <div *ngIf="idSection.errors.required">Sección es requerido</div>
+                <div *ngIf="idSection.errors.minlength">Sección debe ser de al menos {{idSection.errors.minlength.requiredLength}} caracteres.</div>
               </div>
             </div>
             <div class="input-field col s6">

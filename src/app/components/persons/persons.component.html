@@ -5,21 +5,19 @@
         <i *ngIf="editState == false" (click)="editPerson($event, person)" class="material-icons">mode_edit</i>
         <i *ngIf="editState && personToEdit.id == person.id" (click)="clearState($event)" class="material-icons">close</i>
       </a>
-      <h2>
+      <h5>
         <strong>{{person.name}}</strong>
-      </h2>
-      <br>
+      </h5>
       <blockquote>{{person.identification}}</blockquote>
-      <br>
-      <span class="my_tag amber">
+      <span class="my_tag teal lighten-5">
         <strong>Género:</strong>{{person.gender}}</span>
-      <span class="my_tag amber">
+      <span class="my_tag teal lighten-5">
         <strong>Direccion:</strong>{{person.address}}</span>
-      <span class="my_tag amber">
+      <span class="my_tag teal lighten-5">
         <strong>Fecha Nacimiento:</strong>{{person.birthday}}</span>
-      <span class="my_tag amber">
+      <span class="my_tag teal lighten-5">
         <strong>Teléfono:</strong>{{person.phone}}</span>
-      <span class="my_tag amber">
+      <span class="my_tag teal lighten-5">
         <strong>Email:</strong>{{person.email}}</span>  
       <hr>
       <div *ngIf="editState && personToEdit.id == person.id" class="container-updateperson">

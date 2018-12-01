@@ -34,11 +34,11 @@ export class RelationService {
     this.relationsCollection.add(relation);
   }
   deleteRelation(relation: RelationInterface) {
-    this.relationDoc = this.afs.doc(`relations/${relation.parentIdentity,relation.parentIdentity,relation.studentIdentity}`);
+    this.relationDoc = this.afs.doc(`relations/${relation.id}`);
     this.relationDoc.delete();
   }
   updateRelation(relation: RelationInterface) {
-    this.relationDoc = this.afs.doc(`relations/${relation.parentIdentity,relation.parentIdentity,relation.studentIdentity}`);
+    this.relationDoc = this.afs.doc(`relations/${relation.id}`);
     this.relationDoc.update(relation);
   }
 }

@@ -20,7 +20,7 @@ export class StudentSectionsComponent implements OnInit {
     });
   }
 
-  editSection(e, studentSection: PersonSectionInterface) {
+  editStudentSection(e, studentSection: PersonSectionInterface) {
     e.preventDefault();
     this.editState = true;
     this.studentSectionToEdit = studentSection;

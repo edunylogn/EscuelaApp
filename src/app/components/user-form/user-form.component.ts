@@ -14,7 +14,7 @@ type FormErrors = { [u in UserFields]: string };
 export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
-  newUser = true; // to toggle login or signup form
+  newUser = false; // to toggle login or signup form
   passReset = false; // set to true when password reset is triggered
   formErrors: FormErrors = {
     'email': '',
@@ -22,13 +22,12 @@ export class UserFormComponent implements OnInit {
   };
   validationMessages = {
     'email': {
-      'required': 'Email is required.',
-      'email': 'Email must be a valid email',
+      'required': 'Email es requerido.',
+      'email': 'Email debe ser válido',
     },
     'password': {
-      'required': 'Password is required.',
-      'pattern': 'Password must be include at one letter and one number.',
-      'minlength': 'Password must be at least 4 characters long.',
+      'required': 'Contraseña requerida.',
+      'minlength': 'Contraseña debe tener al menos 6 caracteres.',
       'maxlength': 'Password cannot be more than 40 characters long.',
     },
   };
@@ -51,7 +50,8 @@ export class UserFormComponent implements OnInit {
     this.auth.emailLogin(this.userForm.value['email'], this.userForm.value['password']);
   }
 
-  resetPassword() {
+  resetPassword(e) {
+    e.preventDefault();
     this.auth.resetPassword(this.userForm.value['email'])
       .then(() => this.passReset = true);
   }
@@ -63,7 +63,7 @@ export class UserFormComponent implements OnInit {
         Validators.email,
       ]],
       'password': ['', [
-        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+        // Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
         Validators.minLength(6),
         Validators.maxLength(25),
       ]],

@@ -75,7 +75,7 @@ export class AuthService {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(credential => {
-        this.notify.update('Welcome new user!', 'success');
+        this.notify.update('Bienvenido nuevo usuario!', 'success');
         return this.updateUserData(credential.user); // if using firestore
       })
       .catch(error => this.handleError(error));
@@ -85,7 +85,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(credential => {
-        this.notify.update('Welcome back!', 'success');
+        this.notify.update('Bienvenido de nuevo!', 'success');
         return this.updateUserData(credential.user);
       })
       .catch(error => this.handleError(error));
@@ -93,9 +93,9 @@ export class AuthService {
 
   // Sends email allowing user to reset password
   resetPassword(email: string) {
-    const fbAuth = auth();
+    // const fbAuth = auth();
 
-    return fbAuth
+    return this.afAuth.auth
       .sendPasswordResetEmail(email)
       .then(() => this.notify.update('Password update email sent', 'info'))
       .catch(error => this.handleError(error));

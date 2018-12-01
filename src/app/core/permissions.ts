@@ -3,7 +3,7 @@ import { UserInterface } from '../models/userInterface';
 
 export const roles = [
     { role: 'Administrador' },
-    { role: 'Profesor', permissions: ['login', 'calendar'] },
+    { role: 'Profesor', permissions: ['login', 'calendar', 'sections', 'student-sections'] },
     { role: 'Encargado', permissions: ['login', 'calendar'] },
 ];
 

@@ -34,11 +34,11 @@ export class PersonSectionService {
     this.studentSectionsCollection.add(studentSection);
   }
   deleteStudentSection(studentSection: PersonSectionInterface) {
-    this.studentSectionDoc = this.afs.doc(`studentSections/${studentSection.idStudent,studentSection.idSection}`);
+    this.studentSectionDoc = this.afs.doc(`studentSections/${studentSection.id}`);
     this.studentSectionDoc.delete();
   }
   updateStudentSection(studentSection: PersonSectionInterface) {
-    this.studentSectionDoc = this.afs.doc(`studentSections/${studentSection.idStudent,studentSection.idSection}`);
+    this.studentSectionDoc = this.afs.doc(`studentSections/${studentSection.id}`);
     this.studentSectionDoc.update(studentSection);
   }
 }

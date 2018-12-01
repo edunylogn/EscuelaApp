@@ -4,7 +4,7 @@
     <form (ngSubmit)="onGuardarEvent(formNew)" #formNew="ngForm" class="col s6">
       <div class="row">
         <div class="input-field col s6">
-          <input [(ngModel)]="event.title" #title="ngModel" type="text" name="title" id="title" placeholder="Título del evento" minlength="8"
+          <input [(ngModel)]="event.title" #title="ngModel" type="text" name="title" id="title" minlength="8"
             maxlength="50" required>
           <label>Título</label>
           <div *ngIf="title.touched && !title.valid">
@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="input-field col s6">
-          <input [(ngModel)]="event.description" #description="ngModel" type="text" name="description" id="description" placeholder="Descripción del evento"
+          <input [(ngModel)]="event.description" #description="ngModel" type="text" name="description" id="description"
             minlength="10" maxlength="200" required>
           <label>Descripción</label>
           <div *ngIf="description.touched && !description.valid">
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="input-field col s6">
-          <input [(ngModel)]="event.location" #location="ngModel" type="text" name="location" id="location" placeholder="Lugar del evento"
+          <input [(ngModel)]="event.location" #location="ngModel" type="text" name="location" id="location"
             minlength="10" maxlength="200" required>
           <label>Lugar</label>
           <div *ngIf="location.touched && !location.valid">
@@ -31,14 +31,14 @@
           </div>
         </div>
         <div class="input-field col s6">
-          <input [(ngModel)]="event.category" #category="ngModel" type="number" name="category" id="category" placeholder="Categoría del evento" required>
+          <input [(ngModel)]="event.category" #category="ngModel" type="number" name="category" id="category" required>
           <label>Categoría</label>
           <div *ngIf="category.touched && !category.valid">
             <div *ngIf="category.errors.required">Categoría es requerido</div>
           </div>
         </div>
         <div class="input-field col s6">
-          <input [(ngModel)]="event.date" #date="ngModel" type="date" name="date" id="date" placeholder="Fecha del evento" required>
+          <input [(ngModel)]="event.date" #date="ngModel" type="date" name="date" id="date">
           <label>Fecha</label>
           <div *ngIf="date.touched && !date.valid">
             <div *ngIf="date.errors.required">Fecha es requerida</div>

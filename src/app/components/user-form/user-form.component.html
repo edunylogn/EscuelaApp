@@ -1,7 +1,7 @@
 <form [formGroup]="userForm" *ngIf="newUser" (ngSubmit)="signup()">
 
-    <h3>New User Signup</h3>
-    <p class="btn-small" (click)="toggleForm()">Already Registered?</p>
+    <h3>Regístrese</h3>
+    <p class="btn-small" (click)="toggleForm()">Ya está registrado?</p>
     <hr>
 
     <label for="email">Email</label>
@@ -11,23 +11,23 @@
         {{ formErrors.email }}
     </div>
 
-    <label for="password">Password</label>
+    <label for="password">Contraseña</label>
     <input type="password" class="input" formControlName="password" name="password" required>
 
     <div *ngIf="formErrors.password" class="notification is-danger">
         {{ formErrors.password }}
     </div>
 
-    <div *ngIf="userForm.valid" class="notification is-success">Form is valid</div>
-    <button type="submit" class="btn-large" [disabled]="!userForm.valid">Submit</button>
+    <div *ngIf="userForm.valid" class="notification is-success">Datos válidos</div>
+    <button type="submit" class="btn-large" [disabled]="!userForm.valid">Registrar</button>
 
 </form>
 
 
 <form [formGroup]="userForm" *ngIf="!newUser" (ngSubmit)="login()">
 
-    <h3>Existing User Login</h3>
-    <p class="btn-small" (click)="toggleForm()">New User?</p>
+    <h3>Usuario ya existente</h3>
+    <p class="btn-small" (click)="toggleForm()">Nuevo usuario?</p>
     <hr>
 
     <label for="email">Email</label>
@@ -37,18 +37,19 @@
         {{ formErrors.email }}
     </div>
 
-    <label for="password">Password</label>
+    <label for="password">Contraseña</label>
     <input type="password" id="password" name="password2" class="input" formControlName="password" required autocomplete="new-password">
 
     <div *ngIf="formErrors.password" class="help is-danger">
         {{ formErrors.password }}
     </div>
 
-    <button type="submit" class="btn-large" [disabled]="!userForm.valid">Submit</button>
+    <button type="submit" class="btn-large" [disabled]="!userForm.valid">Ingresar</button>
 
-    <span *ngIf="userForm.valid" class="help is-success">Form Looks Valid</span>
+    <span *ngIf="userForm.valid" class="help is-success">Datos correctos</span>
 
-    <a *ngIf="!passReset && userForm.controls.email.valid" class="help is-info" (click)="resetPassword()">Reset Password for {{userForm.value.email}}?</a>
-    <p *ngIf="passReset" class="help is-info">Reset requested. Check your email instructions.</p>
+    <br/>
+    <a *ngIf="!passReset && userForm.controls.email.valid" href="#" class="help is-info" (click)="resetPassword($event)">Resetear contraseña para {{userForm.value.email}}?</a>
+    <p *ngIf="passReset" class="help is-info">Se ha solicitado resetear la contraseña. Revisa tu correo.</p>
 
 </form>

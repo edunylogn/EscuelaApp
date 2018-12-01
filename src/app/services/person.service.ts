@@ -33,11 +33,11 @@ export class PersonService {
     this.personsCollection.add(person);
   }
   deletePerson(person: PersonInterface) {
-    this.personDoc = this.afs.doc(`persons/${person.identification}`);
+    this.personDoc = this.afs.doc(`persons/${person.id}`);
     this.personDoc.delete();
   }
   updatePerson(person: PersonInterface) {
-    this.personDoc = this.afs.doc(`persons/${person.identification}`);
+    this.personDoc = this.afs.doc(`persons/${person.id}`);
     this.personDoc.update(person);
   }
 }
