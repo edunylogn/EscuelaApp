@@ -44,6 +44,16 @@
             <div *ngIf="date.errors.required">Fecha es requerida</div>
           </div>
         </div>
+        <div class="input-field col s6">
+          <select [(ngModel)]="event.idSection" #idSection="ngModel" name="idSection" id="idSection" class="browser-default" required>
+            <option value="" disabled>Seleccione la Sección</option>
+            <option *ngFor="let section of sections" [value]="section.id">{{ section.idSection }}</option>
+          </select>
+          <label class="active">Sección</label>
+          <div *ngIf="idSection.touched && !idSection.valid">
+            <div *ngIf="idSection.errors.required">Sección es requerida</div>
+          </div>
+        </div>
         <button type="submit" class="btn waves-effect waves-light orange right">Guardar
           <i class="material-icons">add_circle</i>
         </button>

@@ -4,11 +4,11 @@
       Calendario de Eventos
     </h2>
   </div>
-  <div class="col s4 right">
-    <label for="">Sección</label>
-    <select name="" id="">
-      <option value="1">1-2</option>
+  <div class="section-filter input-field col s4 mt-4" style="margin-top: 2.5em;">
+    <select [(ngModel)]="idSectionSelected" #idSection="ngModel" name="idSection" id="idSection" class="browser-default">
+      <option *ngFor="let section of sections" [value]="section.id">{{ section.idSection }}</option>
     </select>
+    <label class="active green-text">Sección</label>
   </div>
 </div>
 <div class="row center">

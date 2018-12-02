@@ -15,6 +15,8 @@
         <strong>Categoría:</strong>{{event.category}}</span>
       <span class="my_tag teal lighten-5">
         <strong>Fecha:</strong>{{event.date}}</span>
+      <span class="my_tag teal lighten-5">
+        <strong>Seccion:</strong> {{getSectionName(event.idSection)}}</span>
       <hr>
       <div *ngIf="editState && eventToEdit.id == event.id" class="container-updateEvent">
         <!-- TODO: form -->
@@ -50,7 +52,7 @@
             <div class="input-field col s6">
               <input [(ngModel)]="event.category" #category="ngModel" type="number" name="category" id="category" required/>
               <label class="active">Categoría</label>
-              <div *ngIf="category.touched && !formador.valid">
+              <div *ngIf="category.touched && !category.valid">
                 <div *ngIf="category.errors.required">Categoría es requerido</div>
               </div>
             </div>
@@ -59,6 +61,16 @@
               <label class="active">Fecha</label>
               <div *ngIf="date.touched && !date.valid">
                 <div *ngIf="date.errors.required">Fecha es requerida</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <select [(ngModel)]="event.idSection" #idSection="ngModel" name="idSection" id="idSection" class="browser-default" required>
+                <option value="" disabled>Seleccione la Sección</option>
+                <option *ngFor="let section of sections" [value]="section.id">{{ section.idSection }}</option>
+              </select>
+              <label class="active">Sección</label>
+              <div *ngIf="idSection.touched && !idSection.valid">
+                <div *ngIf="idSection.errors.required">Sección es requerida</div>
               </div>
             </div>
             <button (click)="deleteEvent($event, event)" class="btn red right">Borrar

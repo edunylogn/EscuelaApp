@@ -6,6 +6,8 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cal
 
 import { EventInterface } from '../../models/eventInterface';
 import { EventService } from '../../services/event.service';
+import { SectionService } from 'src/app/services/section.service';
+import { SectionInterface } from 'src/app/models/sectionInterface';
 
 const colors: any = {
   red: { primary: '#ad2121', secondary: '#FAE3E3' },
@@ -33,6 +35,8 @@ export class CalendarComponent {
     action: string;
     event: CalendarEvent;
   };
+  sections: SectionInterface[];
+  idSectionSelected: string | number;
 
   actions: CalendarEventAction[] = [
     {
@@ -52,64 +56,27 @@ export class CalendarComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    // {
-    //   start: subDays(startOfDay(new Date()), 1),
-    //   end: addDays(new Date(), 1),
-    //   title: 'A 3 day event',
-    //   color: colors.red,
-    //   actions: this.actions,
-    //   allDay: true,
-    //   resizable: {
-    //     beforeStart: true,
-    //     afterEnd: true
-    //   },
-    //   draggable: true
-    // },
-    // {
-    //   start: startOfDay(new Date()),
-    //   title: 'An event with no end date',
-    //   color: colors.yellow,
-    //   actions: this.actions
-    // },
-    // {
-    //   start: subDays(endOfMonth(new Date()), 3),
-    //   end: addDays(endOfMonth(new Date()), 3),
-    //   title: 'A long event that spans 2 months',
-    //   color: colors.blue,
-    //   allDay: true
-    // },
-    // {
-    //   start: addHours(startOfDay(new Date()), 2),
-    //   end: new Date(),
-    //   title: 'A draggable and resizable event',
-    //   color: colors.yellow,
-    //   actions: this.actions,
-    //   resizable: {
-    //     beforeStart: true,
-    //     afterEnd: true
-    //   },
-    //   draggable: true
-    // }
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
-
-  /////////
-
   
   editState: boolean = false;
   eventToEdit: EventInterface;
-  constructor(public dialog: MatDialog, private eventService: EventService) {}
+  constructor(public dialog: MatDialog, private eventService: EventService, private sectionService : SectionService) {}
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe(events => {
-      this.events = events.map((event: EventInterface) => {
-          return {
-            start: addMinutes(new Date(event.date), new Date(event.date).getTimezoneOffset()),
-            title: event.title,
-          };
-        });
+    this.sectionService.getSections().subscribe(sections=>{
+      this.sections=sections;
+      this.idSectionSelected = sections[0].id;
+
+      this.eventService.getEvents().subscribe(events => {
+        this.events = events.map((event: EventInterface) => {
+            return {
+              start: addMinutes(new Date(event.date), new Date(event.date).getTimezoneOffset()),
+              title: event.title,
+            };
+          });
+      });
     });
   }
 

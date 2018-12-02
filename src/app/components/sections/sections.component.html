@@ -9,9 +9,7 @@
       <h5>
         <strong>{{section.idSection}}</strong>
       </h5>
-      <blockquote>{{section.idTeacher}}</blockquote>
-      <span class="my_tag teal lighten-5">
-        <strong>seccion:</strong>{{section.idSection}}</span>
+      <blockquote>Profesor: {{getPersonName(section.idTeacher)}}</blockquote>
       <hr>
       <div *ngIf="editState && sectionToEdit.idSection == section.idSection" class="container-updatesection">
         <!-- TODO: form -->
@@ -27,15 +25,16 @@
               </div>
             </div>
             <div class="input-field col s6">
-              <input [(ngModel)]="section.idTeacher" #idTeacher="ngModel" type="text" name="idTeacher" id="idTeacher"
-                minlength="09" maxlength="200" required/>
-              <label class="active">Identificación Profesor</label>
+              <select [(ngModel)]="section.idTeacher" #idTeacher="ngModel" name="idTeacher" id="idTeacher" class="browser-default" required>
+                <option value="" disabled>Seleccione el Profesor</option>
+                <option *ngFor="let person of persons" [value]="person.id">{{ person.name }}</option>
+              </select>
+              <label class="active">Profesor Encargado</label>
               <div *ngIf="idTeacher.touched && !idTeacher.valid">
-                <div *ngIf="idTeacher.errors.required">Identificación de Profesor es requerida</div>
-                <div *ngIf="idTeacher.errors.minlength">Identificación de Profesor debe ser de al menos {{idTeacher.errors.minlength.requiredLength}} caracteres.</div>
+                <div *ngIf="idTeacher.errors.required">Profesor Encargado es requerido</div>
               </div>
             </div>
-            <button (click)="deleteSection($section, section)" class="btn red right">Borrar
+            <button (click)="deleteSection($event, section)" class="btn red right">Borrar
               <i class="material-icons right">delete_forever</i>
             </button>
             <button type="submit" class="btn orange">Actualizar

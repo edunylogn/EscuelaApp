@@ -13,12 +13,13 @@
           </div>
         </div>
         <div class="input-field col s6">
-          <input [(ngModel)]="section.idTeacher" #identification="ngModel" type="text" name="idTeacher" id="idTeacher"
-            minlength="09" maxlength="200" required/>
-          <label class="active">Identificación PRofesor</label>
-          <div *ngIf="identification.touched && !identification.valid">
-            <div *ngIf="identification.errors.required">Identificación es requerida</div>
-            <div *ngIf="identification.errors.minlength">Identificación debe ser de al menos {{identification.errors.minlength.requiredLength}} caracteres.</div>
+          <select [(ngModel)]="section.idTeacher" #idTeacher="ngModel" name="idTeacher" id="idTeacher" class="browser-default" required>
+            <option value="" disabled>Seleccione el Profesor</option>
+            <option *ngFor="let person of persons" [value]="person.id">{{ person.name }}</option>
+          </select>
+          <label class="active">Profesor Encargado</label>
+          <div *ngIf="idTeacher.touched && !idTeacher.valid">
+            <div *ngIf="idTeacher.errors.required">Profesor Encargado es requerido</div>
           </div>
         </div>
         <button type="submit" class="btn waves-effect waves-light orange right">Guardar

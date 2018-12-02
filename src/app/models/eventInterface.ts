@@ -4,5 +4,5 @@ export interface EventInterface {
     title?: string;
     description?: string;
     creator?: string;
-    section?: string;
+    idSection?: string | number;
 }

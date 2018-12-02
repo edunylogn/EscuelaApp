@@ -3,6 +3,8 @@ import { startOfDay } from 'date-fns';
 import { EventService } from '../../services/event.service';
 import { EventInterface } from '../../models/eventInterface';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { SectionService } from 'src/app/services/section.service';
+import { SectionInterface } from 'src/app/models/sectionInterface';
 
 @Component({
   selector: 'app-event-add',
@@ -11,16 +13,20 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 })
 export class EventAddComponent implements OnInit {
 
+  sections: SectionInterface[];
   event: EventInterface = {
     title: '',
     description: '',
     date: '',
     creator: '',
-    section: ''
+    idSection: ''
   }
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private sectionService : SectionService) { }
 
   ngOnInit() {
+    this.sectionService.getSections().subscribe(sections=>{
+      this.sections=sections;
+    });
   }
 
   onGuardarEvent(myForm: NgForm) {

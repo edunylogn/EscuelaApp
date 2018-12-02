@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInterface } from 'src/app/models/userInterface';
 import { UserService } from 'src/app/services/user.service';
+import { PersonService } from 'src/app/services/person.service';
+import { PersonInterface } from 'src/app/models/personInterface';
 
 @Component({
   selector: 'app-users',
@@ -9,15 +11,19 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UsersComponent implements OnInit {
 
+  persons: PersonInterface[];
   users: UserInterface[];
   editState: boolean = false;
   userToEdit: UserInterface;
-  constructor(private userService : UserService) { }
+  constructor(private userService : UserService, private personService : PersonService) { }
 
   ngOnInit() {
     this.userService.getUsers().subscribe(users=>{
-    this.users = users;
-    console.log(this.users);
+      this.users = users;
+      console.log(this.users);
+    });
+    this.personService.getPersons().subscribe(persons=>{
+      this.persons = persons;
     });
   }
 

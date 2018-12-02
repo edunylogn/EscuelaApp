@@ -31,7 +31,11 @@
           </div>
         </div>
         <div class="input-field col s6">
-          <input [(ngModel)]="person.gender" #gender="ngModel" type="number" name="gender" id="gender" required/>
+          <select [(ngModel)]="person.gender" #gender="ngModel" name="gender" id="gender" class="browser-default" required>
+            <option value="" disabled>Seleccione el tipo de persona</option>
+            <option [value]="1">Masculino</option>
+            <option [value]="2">Femenino</option>
+          </select>
           <label class="active">Género</label>
           <div *ngIf="gender.touched && !gender.valid">
             <div *ngIf="gender.errors.required">Género es requerido</div>
@@ -61,10 +65,14 @@
           </div>
         </div>
         <div class="input-field col s6">
-          <input [(ngModel)]="person.personType" #personType="ngModel" type="number" name="person-Type" id="person-Type" required/>
-          <label class="active">Tipo</label>
+          <select [(ngModel)]="person.personType" #personType="ngModel" name="personType" id="personType" class="browser-default" required>
+            <option value="" disabled>Seleccione el tipo de persona</option>
+            <option [value]="1">Profesor</option>
+            <option [value]="2">Estudiante</option>
+          </select>
+          <label class="active">Profesor Encargado</label>
           <div *ngIf="personType.touched && !personType.valid">
-            <div *ngIf="personType.errors.required">Tipo es requerido</div>
+            <div *ngIf="personType.errors.required">Tipo de persona es requerido</div>
           </div>
         </div>
         <button type="submit" class="btn waves-effect waves-light orange right">Guardar

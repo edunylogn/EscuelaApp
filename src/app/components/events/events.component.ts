@@ -1,32 +1,33 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { EventInterface } from '../../models/eventInterface';
 import { EventService } from '../../services/event.service';
+import { SectionService } from 'src/app/services/section.service';
+import { SectionInterface } from 'src/app/models/sectionInterface';
 
 @Component({
   selector: 'app-events',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.less']
 })
 export class EventsComponent implements OnInit {
   events: EventInterface[];
+  sections: SectionInterface[];
   editState: boolean = false;
   prevLength: Number = 0;
   eventToEdit: EventInterface;
-  constructor(private eventService: EventService, private cd: ChangeDetectorRef) { }
+  constructor(private eventService: EventService, private sectionService : SectionService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe(events => {
-      this.events = events;
-      this.cd.markForCheck();
-      console.log(this.events);
+    this.sectionService.getSections().subscribe(sections=>{
+      this.sections=sections;
+      this.eventService.getEvents().subscribe(events => {
+        this.events = events;
+        this.cd.markForCheck();
+        console.log(this.events);
+      });
     });
   }
-
-  // ngDoCheck() {
-  //   this.cd.markForCheck();
-  // }
-
+  
   editEvent(e, event: EventInterface) {
     e.preventDefault();
     this.editState = true;
@@ -45,5 +46,12 @@ export class EventsComponent implements OnInit {
       e.preventDefault();
     this.editState = false;
     this.eventToEdit = null;
+  }
+
+  getSectionName(id: Number) {
+    if (this.sections) {
+      const section = this.sections.find(p => p.id === id);
+      return section ? section.idSection : id;
+    }
   }
 }

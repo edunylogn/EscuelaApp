@@ -1,4 +1,5 @@
 <div *ngIf="persons?.length > 0;else noPersons">
+  <h2>Personas</h2>
   <ul *ngFor="let person of persons" class="collection">
     <li class="collection-item">
       <a href="" class="secondary-content">
@@ -9,8 +10,6 @@
         <strong>{{person.name}}</strong>
       </h5>
       <blockquote>{{person.identification}}</blockquote>
-      <span class="my_tag teal lighten-5">
-        <strong>Género:</strong>{{person.gender}}</span>
       <span class="my_tag teal lighten-5">
         <strong>Direccion:</strong>{{person.address}}</span>
       <span class="my_tag teal lighten-5">
@@ -52,7 +51,11 @@
               </div>
             </div>
             <div class="input-field col s6">
-              <input [(ngModel)]="person.gender" #gender="ngModel" type="number" name="gender-person" id="gender-person" required/>
+              <select [(ngModel)]="person.gender" #gender="ngModel" name="gender" id="gender" class="browser-default" required>
+                <option value="" disabled>Seleccione el tipo de persona</option>
+                <option [value]="1">Masculino</option>
+                <option [value]="2">Femenino</option>
+              </select>
               <label class="active">Género</label>
               <div *ngIf="gender.touched && !gender.valid">
                 <div *ngIf="gender.errors.required">Género es requerido</div>
@@ -75,20 +78,24 @@
             <div class="input-field col s6">
               <input [(ngModel)]="person.email" #email="ngModel" type="text" name="email-person" id="email-person"
                 minlength="5" maxlength="200" required/>
-              <label class="active">Lugar</label>
-              <div *ngIf="email.touched && !emailP.valid">
+              <label class="active">Email</label>
+              <div *ngIf="email.touched && !email.valid">
                 <div *ngIf="email.errors.required">Correo es requerida</div>
                 <div *ngIf="email.errors.minlength">Correo debe ser de al menos {{email.errors.minlength.requiredLength}} caracteres.</div>
               </div>
             </div>
             <div class="input-field col s6">
-              <input [(ngModel)]="person.personType" #personType="ngModel" type="number" name="person-Type" id="person-Type" required/>
-              <label class="active">Tipo</label>
+              <select [(ngModel)]="person.personType" #personType="ngModel" name="personType" id="personType" class="browser-default" required>
+                <option value="" disabled>Seleccione el tipo de persona</option>
+                <option [value]="1">Profesor</option>
+                <option [value]="2">Estudiante</option>
+              </select>
+              <label class="active">Profesor Encargado</label>
               <div *ngIf="personType.touched && !personType.valid">
-                <div *ngIf="personType.errors.required">Tipo es requerido</div>
+                <div *ngIf="personType.errors.required">Tipo de persona es requerido</div>
               </div>
             </div>
-            <button (click)="deleteperson($person, person)" class="btn red right">Borrar
+            <button (click)="deletePerson($event, person)" class="btn red right">Borrar
               <i class="material-icons right">delete_forever</i>
             </button>
             <button type="submit" class="btn orange">Actualizar

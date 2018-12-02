@@ -7,45 +7,51 @@
         <i *ngIf="editState && relationToEdit.id == relation.studentIdentity" (click)="clearState($event)" class="material-icons">close</i>
       </a>
       <h5>
-        <strong>{{relation.studentIdentity}}</strong>
+        <strong>Estudiante: {{getPersonName(relation.studentIdentity)}}</strong>
       </h5>
-      <blockquote>{{relation.relationship}}</blockquote>
       <span class="my_tag teal lighten-5">
-        <strong>Pariente:</strong>{{relation.parentIdentity}}</span>
+        <strong>Encargado:</strong> {{getPersonName(relation.parentIdentity)}}
+      </span>
+      <span class="my_tag teal lighten-5">
+        <strong>Relación:</strong> {{relation.relationship}}
+      </span>
       <hr>
       <div *ngIf="editState && relationToEdit.studentIdentity == relation.studentIdentity" class="container-updaterelation">
         <!-- TODO: form -->
-        <form (ngSubmit)="onUdpdaterelation(relation)" class="col s6">
+        <form (ngSubmit)="onUdpdateRelation(relation)" class="col s6">
           <div class="row">
             <div class="input-field col s6">
-              <input [(ngModel)]="relation.studentIdentity" #studentidentity="ngModel" type="text" name="studentidentity" id="studentidentity" minlength="2"
-                maxlength="100" required/>
-              <label class="active">Identificación Estudiante</label>
-              <div *ngIf="studentidentity.touched && !studentidentity-person.valid">
-                <div *ngIf="studentidentity.errors.required">Identificación es requerido</div>
-                <div *ngIf="studentidentity.errors.minlength">Identificación debe ser de al menos {{studentidentity.errors.minlength.requiredLength}} caracteres.</div>
+              <select [(ngModel)]="relation.studentIdentity" #studentIdentity="ngModel" name="studentIdentity" id="studentIdentity" class="browser-default" required>
+                <option value="" disabled>Seleccione el Estudiante</option>
+                <option *ngFor="let person of persons" [value]="person.id">{{ person.name }}</option>
+              </select>
+              <label class="active">Estudiante</label>
+              <div *ngIf="studentIdentity.touched && !studentIdentity.valid">
+                <div *ngIf="studentIdentity.errors.required">Estudiante es requerido</div>
               </div>
             </div>
             <div class="input-field col s6">
-              <input [(ngModel)]="relation.parentIdentity" #parentidentity="ngModel" type="text" name="parentidentity-person" id="parentidentity-person"
-                minlength="10" maxlength="200" required/>
-              <label class="active">Identificación Pariente</label>
-              <div *ngIf="parentidentity.touched && !parentidentity.valid">
-                <div *ngIf="parentidentity.errors.required">Identificación es requerida</div>
-                <div *ngIf="parentidentity.errors.minlength">Identificación debe ser de al menos {{parentidentity.errors.minlength.requiredLength}} caracteres.</div>
+              <select [(ngModel)]="relation.parentIdentity" #parentIdentity="ngModel" name="parentIdentity" id="parentIdentity" class="browser-default" required>
+                <option value="" disabled>Seleccione el Encargado</option>
+                <option *ngFor="let person of persons" [value]="person.id">{{ person.name }}</option>
+              </select>
+              <label class="active">Encargado</label>
+              <div *ngIf="parentIdentity.touched && !parentIdentity.valid">
+                <div *ngIf="parentIdentity.errors.required">Encargado es requerido</div>
               </div>
             </div>
             <div class="input-field col s6">
-              <input [(ngModel)]="relation.relationship" #relationship="ngModel" type="text" name="relationship" id="relationship"
-                minlength="9" maxlength="200" required/>
+              <select [(ngModel)]="relation.relationship" #relationship="ngModel" name="relationship" id="relationship" class="browser-default" required>
+                <option value="" disabled>Seleccione la relación</option>
+                <option *ngFor="let rel of showRelations" [value]="rel">{{ rel }}</option>
+              </select>
               <label class="active">Relación</label>
               <div *ngIf="relationship.touched && !relationship.valid">
                 <div *ngIf="relationship.errors.required">Relación es requerida</div>
-                <div *ngIf="relationship.errors.minlength">Relación debe ser de al menos {{relationship.errors.minlength.requiredLength}} caracteres.</div>
               </div>
             </div>
            
-            <button (click)="deleterelation($relation, relation)" class="btn red right">Borrar
+            <button (click)="deleteRelation($event, relation)" class="btn red right">Borrar
               <i class="material-icons right">delete_forever</i>
             </button>
             <button type="submit" class="btn orange">Actualizar
