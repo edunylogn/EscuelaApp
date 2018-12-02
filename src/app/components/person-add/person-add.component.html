@@ -60,6 +60,13 @@
             <div *ngIf="email.errors.minlength">Correo debe ser de al menos {{email.errors.minlength.requiredLength}} caracteres.</div>
           </div>
         </div>
+        <div class="input-field col s6">
+          <input [(ngModel)]="person.personType" #personType="ngModel" type="number" name="person-Type" id="person-Type" required/>
+          <label class="active">Tipo</label>
+          <div *ngIf="personType.touched && !personType.valid">
+            <div *ngIf="personType.errors.required">Tipo es requerido</div>
+          </div>
+        </div>
         <button type="submit" class="btn waves-effect waves-light orange right">Guardar
           <i class="material-icons">add_circle</i>
         </button>

@@ -17,7 +17,8 @@ export class PersonAddComponent implements OnInit {
     address: '',
     birthday: '',
     email: '',
-    phone: null
+    phone: null,
+    personType: null
   }
   constructor(private personService: PersonService) { }
 

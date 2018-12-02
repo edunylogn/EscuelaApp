@@ -22,7 +22,7 @@
       <hr>
       <div *ngIf="editState && personToEdit.id == person.id" class="container-updateperson">
         <!-- TODO: form -->
-        <form (ngSubmit)="onUdpdateperson(person)" class="col s6">
+        <form (ngSubmit)="onUdpdatePerson(person)" class="col s6">
           <div class="row">
             <div class="input-field col s6">
               <input [(ngModel)]="person.name" #name="ngModel" type="text" name="name-person" id="name-person" minlength="2"
@@ -79,6 +79,13 @@
               <div *ngIf="email.touched && !emailP.valid">
                 <div *ngIf="email.errors.required">Correo es requerida</div>
                 <div *ngIf="email.errors.minlength">Correo debe ser de al menos {{email.errors.minlength.requiredLength}} caracteres.</div>
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <input [(ngModel)]="person.personType" #personType="ngModel" type="number" name="person-Type" id="person-Type" required/>
+              <label class="active">Tipo</label>
+              <div *ngIf="personType.touched && !personType.valid">
+                <div *ngIf="personType.errors.required">Tipo es requerido</div>
               </div>
             </div>
             <button (click)="deleteperson($person, person)" class="btn red right">Borrar
