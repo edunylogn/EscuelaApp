@@ -28,7 +28,7 @@ export class UserFormComponent implements OnInit {
     'password': {
       'required': 'Contraseña requerida.',
       'minlength': 'Contraseña debe tener al menos 6 caracteres.',
-      'maxlength': 'Password cannot be more than 40 characters long.',
+      'maxlength': 'Contraseña no debe ser mayor a 40 caracteres.',
     },
   };
 

@@ -109,7 +109,18 @@ export class AuthService {
 
   // If error, console log and notify user
   private handleError(error: Error) {
+    var message="El correo está siendo utilizado por otro usuario."; 
     console.error(error);
-    this.notify.update(error.message, 'error');
+    switch(error.code) { 
+      case "auth/email-already-in-use":{ 
+        this.notify.update(message, 'error');
+         break; 
+      } 
+      default: { 
+        this.notify.update(error.message, 'error');
+         break; 
+      } 
+   } 
+    
   }
 }
