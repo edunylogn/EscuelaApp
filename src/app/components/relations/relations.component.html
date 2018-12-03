@@ -23,7 +23,7 @@
             <div class="input-field col s6">
               <select [(ngModel)]="relation.studentIdentity" #studentIdentity="ngModel" name="studentIdentity" id="studentIdentity" class="browser-default" required>
                 <option value="" disabled>Seleccione el Estudiante</option>
-                <option *ngFor="let person of persons" [value]="person.id">{{ person.name }}</option>
+                <option *ngFor="let person of persons | personsByType: '4'" [value]="person.id">{{ person.name }}</option>
               </select>
               <label class="active">Estudiante</label>
               <div *ngIf="studentIdentity.touched && !studentIdentity.valid">
@@ -33,7 +33,7 @@
             <div class="input-field col s6">
               <select [(ngModel)]="relation.parentIdentity" #parentIdentity="ngModel" name="parentIdentity" id="parentIdentity" class="browser-default" required>
                 <option value="" disabled>Seleccione el Encargado</option>
-                <option *ngFor="let person of persons" [value]="person.id">{{ person.name }}</option>
+                <option *ngFor="let person of persons | personsByType: '3'" [value]="person.id">{{ person.name }}</option>
               </select>
               <label class="active">Encargado</label>
               <div *ngIf="parentIdentity.touched && !parentIdentity.valid">

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Inject } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth,isSameDay, isSameMonth, addHours, addMinutes } from 'date-fns';
 import { Subject } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -8,8 +8,12 @@ import { EventInterface } from '../../models/eventInterface';
 import { EventService } from '../../services/event.service';
 import { SectionService } from 'src/app/services/section.service';
 import { SectionInterface } from 'src/app/models/sectionInterface';
+import { RelationInterface } from 'src/app/models/relationInterface';
+import { RelationService } from 'src/app/services/relationship.service';
+import { PersonSectionService } from 'src/app/services/personSection.service';
+import { PersonSectionInterface } from 'src/app/models/personSectionInterface';
 import { AuthService } from '../../services/auth.service';
-import { UserInterface } from 'src/app/models/userInterface';
+import { EventsBySectionPipe } from 'src/app/pipes/events-by-section.pipe'
 
 const colors: any = {
   red: { primary: '#ad2121', secondary: '#FAE3E3' },
@@ -20,7 +24,8 @@ const colors: any = {
 @Component({
   selector: 'calendar-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'calendar.component.html'
+  templateUrl: 'calendar.component.html',
+  providers: [ EventsBySectionPipe ]
 })
 
 export class CalendarComponent {
@@ -34,24 +39,10 @@ export class CalendarComponent {
     event: CalendarEvent;
   };
   sections: SectionInterface[];
+  relations: RelationInterface[];
+  personSections: PersonSectionInterface[];
+
   idSectionSelected: string | number;
-
-  // actions: CalendarEventAction[] = [
-  //   {
-  //     label: '<i class="fa fa-fw fa-pencil"></i>',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.handleEvent('Edited', event);
-  //     }
-  //   },
-  //   {
-  //     label: '<i class="fa fa-fw fa-times"></i>',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.events = this.events.filter(iEvent => iEvent !== event);
-  //       this.handleEvent('Deleted', event);
-  //     }
-  //   }
-  // ];
-
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [];
@@ -61,24 +52,44 @@ export class CalendarComponent {
   
   editState: boolean = false;
   eventToEdit: EventInterface;
-  constructor(public dialog: MatDialog, private eventService: EventService, private sectionService : SectionService, private auth: AuthService) {}
+  constructor(
+    public dialog: MatDialog, 
+    private eventService: EventService, 
+    private sectionService : SectionService, 
+    private personSectionService : PersonSectionService, 
+    private relationService : RelationService, 
+    private auth: AuthService,
+    private pipeEvent: EventsBySectionPipe,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.auth.getUser().subscribe(user=>{
-      if (user.idPerson) {
+      if (user && user.idPerson && user.userType === '2') {
         this.sectionService.getSections().subscribe(sections=>{
-          this.sections=sections.filter(s => s.idTeacher === user.idPerson);
-          this.idSectionSelected = sections[0].id;
-    
+          this.sections = sections.filter(s => s.idTeacher === user.idPerson);
+          this.idSectionSelected = this.sections[0].id;
           this.eventService.getEvents().subscribe(events => {
-            this.eventsData = events.filter(e => e.idSection === this.idSectionSelected);
-            this.events = this.eventsData.map((event: EventInterface) => {
-                return {
-                  id: event.id,
-                  start: addMinutes(new Date(event.date), new Date(event.date).getTimezoneOffset()),
-                  title: event.title,
-                };
+            this.eventsData = events;
+            this.filterBySection(this.idSectionSelected);
+          });
+        });
+      } else if(user && user.idPerson && user.userType === '3') {
+        this.relationService.getRelations().subscribe(relations => {
+          this.relations = relations.filter(r => r.parentIdentity === user.idPerson);
+          this.personSectionService.getStudentSections().subscribe(personSections => {
+            const students = relations.map(r => r.studentIdentity);
+            this.personSections = personSections.filter(ps => students.includes(ps.idStudent));
+            this.sectionService.getSections().subscribe(sections=>{
+              const parentSections = personSections.map(ps => ps.idSection);
+              this.sections = sections.filter(s => parentSections.includes(String(s.id)));
+              this.idSectionSelected = this.sections[0].id;
+              this.eventService.getEvents().subscribe(events => {
+                this.eventsData = events;
+                this.filterBySection(this.idSectionSelected);
+                this.cd.markForCheck();
               });
+            });
           });
         });
       }
@@ -87,6 +98,14 @@ export class CalendarComponent {
 
   filterBySection(idSection) {
     this.idSectionSelected = idSection;
+    const _events = this.pipeEvent.transform(this.eventsData, this.idSectionSelected);
+    this.events = _events.map((event: EventInterface) => {
+        return {
+          id: event.id,
+          start: addMinutes(new Date(event.date), new Date(event.date).getTimezoneOffset()),
+          title: event.title,
+        };
+      });
   }
 
   /////////

@@ -11,13 +11,13 @@
       </h5>
       <blockquote>{{person.identification}}</blockquote>
       <span class="my_tag teal lighten-5">
-        <strong>Direccion:</strong> {{person.address}}</span>
+        <strong>Direccion: </strong> {{person.address}}</span>
       <span class="my_tag teal lighten-5">
-        <strong>Fecha Nacimiento:</strong> {{person.birthday}}</span>
+        <strong>Rol: </strong> {{getTypeName(person.personType)}}</span>
       <span class="my_tag teal lighten-5">
-        <strong>Teléfono:</strong> {{person.phone}}</span>
+        <strong>Teléfono: </strong> {{person.phone}}</span>
       <span class="my_tag teal lighten-5">
-        <strong>Email:</strong> {{person.email}}</span>  
+        <strong>Email: </strong> {{person.email}}</span>  
       <hr>
       <div *ngIf="editState && personToEdit.id == person.id" class="container-updateperson">
         <!-- TODO: form -->
@@ -92,7 +92,7 @@
                 <option [value]="3">Encargado</option>
                 <option [value]="4">Estudiante</option>
               </select>
-              <label class="active">Profesor Encargado</label>
+              <label class="active">Tipo Persona</label>
               <div *ngIf="personType.touched && !personType.valid">
                 <div *ngIf="personType.errors.required">Tipo de persona es requerido</div>
               </div>

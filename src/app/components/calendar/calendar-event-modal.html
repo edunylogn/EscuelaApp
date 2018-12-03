@@ -1,28 +1,17 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
   Detalles:
-  <!-- <ul>
-    <li>
-      <span>&#10003;</span> {{event.description}}
-    </li>
-    <li>
-      <span>&#10003;</span> <strong>Lugar:</strong>{{event.location}}</span>
-    </li>
-    <li>
-      <span>&#10003;</span> <strong>Categoría:</strong>{{event.category}}</span>
-    </li>
-  </ul> -->
-  <blockquote>{{event.description}}</blockquote>
+  <blockquote>{{data.description}}</blockquote>
   <span class="my_tag teal lighten-5">
-    <strong>Lugar:</strong>{{event.location}}
-  </span>
+    <strong>Lugar:</strong> {{data.location}} &nbsp;
+  </span>&nbsp;
   <span class="my_tag teal lighten-5">
-    <strong>Categoría:</strong>{{event.category}}
-  </span>
+    <strong>Categoría:</strong> {{data.category}} &nbsp;
+  </span>&nbsp;
   <span class="my_tag teal lighten-5">
-    <strong>Fecha:</strong>{{event.date}}
-  </span>
+    <strong>Fecha:</strong> {{data.date}} &nbsp;
+  </span>&nbsp;
   <span class="my_tag teal lighten-5">
-    <strong>Seccion:</strong> {{getSectionName(event.idSection)}}
+    <strong>Seccion:</strong> {{getSectionName(data.idSection)}} &nbsp;
   </span>
 </div>

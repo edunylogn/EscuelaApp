@@ -1,7 +1,7 @@
 <div *ngIf="events?.length > 0;else noEvents">
-  <ul *ngFor="let event of events" class="collection">
+  <ul *ngFor="let event of events | eventsBySection: sectionFilter" class="collection">
     <li class="collection-item">
-      <a href="" class="secondary-content">
+      <a href="" class="secondary-content" *ngIf="user && activeLink(user, 'edit-events')">
         <i *ngIf="editState == false" (click)="editEvent($event, event)" class="material-icons">mode_edit</i>
         <i *ngIf="editState && eventToEdit.id == event.id" (click)="clearState($event)" class="material-icons">close</i>
       </a>
@@ -89,4 +89,4 @@
   <hr>
   <h5>NO EXISTEN EVENTOS</h5>
 </ng-template>
-<app-event-add>
+<app-event-add *ngIf="user && activeLink(user, 'edit-events')" [sectionFilter]="sectionFilter"></app-event-add>

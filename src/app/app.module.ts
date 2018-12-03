@@ -42,6 +42,8 @@ import { CalendarComponent, CalendarEventModalComponent } from './components/cal
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MyprofileComponent } from './components/myprofile/myprofile.component';
+import { EventsBySectionPipe } from './pipes/events-by-section.pipe';
+import { PersonsByTypePipe } from './pipes/persons-by-type.pipe';
 
 
 @NgModule({
@@ -67,7 +69,9 @@ import { MyprofileComponent } from './components/myprofile/myprofile.component';
     MainNavComponent,
     CalendarComponent,
     CalendarEventModalComponent,
-    MyprofileComponent
+    MyprofileComponent,
+    EventsBySectionPipe,
+    PersonsByTypePipe
   ],
   imports: [
     BrowserModule,

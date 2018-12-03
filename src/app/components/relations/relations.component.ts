@@ -12,7 +12,7 @@ import { PersonInterface } from 'src/app/models/personInterface';
 export class RelationsComponent implements OnInit {
   showRelations: string[];
   relations: RelationInterface[];
-  persons: PersonInterface[];
+  persons: PersonInterface[] = [];
   editState: boolean = false;
   relationToEdit: RelationInterface;
   constructor(private relationService : RelationService, private personService : PersonService) { }

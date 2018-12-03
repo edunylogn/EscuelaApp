@@ -96,7 +96,7 @@
 
 <br><br><br>
 
-<h3>
+<h3 *ngIf="events.length > 0">
   Editar Eventos
   <!-- <button
     class="btn btn-primary pull-right"
@@ -105,48 +105,5 @@
   </button> -->
   <div class="clearfix"></div>
 </h3>
-<!-- 
-<table class="table table-bordered">
-
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Primary color</th>
-      <th>Starts at</th>
-      <th>Remove</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let event of events; let index = index">
-      <td>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="event.title"
-          (keyup)="refresh.next()">
-      </td>
-      <td>
-        <input
-          type="color"
-          [(ngModel)]="event.color.primary"
-          (change)="refresh.next()">
-      </td>
-      <td>
-        <input
-          class="form-control"
-          type="date">
-      </td>
-      <td>
-        <button
-          class="btn btn-danger"
-          (click)="events.splice(index, 1); refresh.next()">
-          Delete
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-   -->
 
 <app-events [sectionFilter]="idSectionSelected">

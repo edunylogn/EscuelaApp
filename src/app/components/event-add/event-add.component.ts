@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { startOfDay } from 'date-fns';
 import { EventService } from '../../services/event.service';
 import { EventInterface } from '../../models/eventInterface';
@@ -11,7 +11,10 @@ import { SectionInterface } from 'src/app/models/sectionInterface';
   templateUrl: './event-add.component.html',
   styleUrls: ['./event-add.component.less']
 })
-export class EventAddComponent implements OnInit {
+export class EventAddComponent implements OnInit, OnChanges {
+
+  @Input()
+  sectionFilter: string;
 
   sections: SectionInterface[];
   event: EventInterface = {
@@ -27,6 +30,11 @@ export class EventAddComponent implements OnInit {
     this.sectionService.getSections().subscribe(sections=>{
       this.sections=sections;
     });
+    this.event.idSection = this.sectionFilter;
+  }
+
+  ngOnChanges() {
+    this.event.idSection = this.sectionFilter;
   }
 
   onGuardarEvent(myForm: NgForm) {

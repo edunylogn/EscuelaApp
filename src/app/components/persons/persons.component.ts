@@ -38,4 +38,13 @@ export class PersonsComponent implements OnInit {
     this.editState = false;
     this.personToEdit = null;
   }
+
+  getTypeName(id) {
+    return [
+      'Administrador',
+      'Profesor',
+      'Encargado',
+      'Estudiante'
+    ][parseInt(id) - 1];
+  }
 }

@@ -27,7 +27,7 @@
               <div class="input-field col s6">
                 <select [(ngModel)]="studentSection.idStudent" #idStudent="ngModel" name="idStudent" id="idStudent" class="browser-default" required>
                   <option value="" disabled>Seleccione el Estudiante</option>
-                  <option *ngFor="let person of persons" [value]="person.id">{{ person.name }}</option>
+                  <option *ngFor="let person of persons | personsByType: '4'" [value]="person.id">{{ person.name }}</option>
                 </select>
                 <label class="active">Estudiante a asignar</label>
                 <div *ngIf="idStudent.touched && !idStudent.valid">
