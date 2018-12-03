@@ -1,5 +1,5 @@
+<h2>Edite su perfil</h2>
 <div *ngIf="persons?.length > 0;else noPersons">
-  <h2>Personas</h2>
   <ul *ngFor="let person of persons" class="collection">
     <li class="collection-item">
       <a href="" class="secondary-content">
@@ -87,8 +87,9 @@
             <div class="input-field col s6">
               <select [(ngModel)]="person.personType" #personType="ngModel" name="personType" id="personType" class="browser-default" required>
                 <option value="" disabled>Seleccione el tipo de persona</option>
+                <option [value]="1">Administrador</option>
                 <option [value]="2">Profesor</option>
-                <option [value]="3">Estudiante</option>
+                <option [value]="3">Encargado</option>
                 <option [value]="4">Estudiante</option>
               </select>
               <label class="active">Profesor Encargado</label>
@@ -96,9 +97,6 @@
                 <div *ngIf="personType.errors.required">Tipo de persona es requerido</div>
               </div>
             </div>
-            <button (click)="deletePerson($event, person)" class="btn red right">Borrar
-              <i class="material-icons right">delete_forever</i>
-            </button>
             <button type="submit" class="btn orange">Actualizar
               <i class="material-icons right">save</i>
             </button>
@@ -109,7 +107,7 @@
   </ul>
 </div>
 <ng-template #noPersons>
-  <hr>
-  <h5>NO EXISTEN PERSONAS</h5>
+  <div *ngIf="auth.user | async as user">
+    <app-person-add [user]="user"></app-person-add>
+  </div>
 </ng-template>
-<app-person-add>

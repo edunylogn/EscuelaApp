@@ -38,6 +38,17 @@ export class AuthService {
       )
     }
 
+  getUser() {
+    return this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.afs.doc<UserInterface>(`users/${user.uid}`).valueChanges()
+        } else {
+          return of(null)
+        }
+      })
+    )
+  }
   googleLogin() {
     const provider = new auth.GoogleAuthProvider()
     return this.oAuthLogin(provider);
@@ -63,7 +74,7 @@ export class AuthService {
 
     const data: UserInterface = {
       id: user.uid,
-      username: user.displayName,
+      username: user.displayName || user.email.split('@')[0],
       email: user.email
     }
 
@@ -107,10 +118,8 @@ export class AuthService {
     });
   }
 
-  // If error, console log and notify user
-  private handleError(error: Error) {
+  private handleError(error) {
     var message="El correo está siendo utilizado por otro usuario."; 
-    console.error(error);
     switch(error.code) { 
       case "auth/email-already-in-use":{ 
         this.notify.update(message, 'error');

@@ -35,6 +35,6 @@ export class UserService {
   }
   updateUser(user: UserInterface) {
     this.userDoc = this.afs.doc(`users/${user.id}`);
-    this.userDoc.update(user);
+    return this.userDoc.update(user);
   }
 }

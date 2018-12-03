@@ -8,6 +8,8 @@ import { EventInterface } from '../../models/eventInterface';
 import { EventService } from '../../services/event.service';
 import { SectionService } from 'src/app/services/section.service';
 import { SectionInterface } from 'src/app/models/sectionInterface';
+import { AuthService } from '../../services/auth.service';
+import { UserInterface } from 'src/app/models/userInterface';
 
 const colors: any = {
   red: { primary: '#ad2121', secondary: '#FAE3E3' },
@@ -57,26 +59,32 @@ export class CalendarComponent {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [];
+  eventsData: EventInterface[];
 
   activeDayIsOpen: boolean = true;
   
   editState: boolean = false;
   eventToEdit: EventInterface;
-  constructor(public dialog: MatDialog, private eventService: EventService, private sectionService : SectionService) {}
+  constructor(public dialog: MatDialog, private eventService: EventService, private sectionService : SectionService, private auth: AuthService) {}
 
   ngOnInit() {
-    this.sectionService.getSections().subscribe(sections=>{
-      this.sections=sections;
-      this.idSectionSelected = sections[0].id;
-
-      this.eventService.getEvents().subscribe(events => {
-        this.events = events.map((event: EventInterface) => {
-            return {
-              start: addMinutes(new Date(event.date), new Date(event.date).getTimezoneOffset()),
-              title: event.title,
-            };
+    this.auth.getUser().subscribe(user=>{
+      if (user.idPerson) {
+        this.sectionService.getSections().subscribe(sections=>{
+          this.sections=sections.filter(s => s.idTeacher === user.idPerson);
+          this.idSectionSelected = sections[0].id;
+    
+          this.eventService.getEvents().subscribe(events => {
+            this.eventsData = events.filter(e => e.idSection === this.idSectionSelected);
+            this.events = this.eventsData.map((event: EventInterface) => {
+                return {
+                  start: addMinutes(new Date(event.date), new Date(event.date).getTimezoneOffset()),
+                  title: event.title,
+                };
+              });
           });
-      });
+        });
+      }
     });
   }
 

@@ -20,10 +20,9 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.userService.getUsers().subscribe(users=>{
       this.users = users;
-      console.log(this.users);
     });
     this.personService.getPersons().subscribe(persons=>{
-      this.persons = persons;
+      this.persons = persons.filter(p => p.personType !== 2);
     });
   }
 

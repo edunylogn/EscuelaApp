@@ -41,6 +41,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
 import { CalendarComponent, CalendarEventModalComponent } from './components/calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { MyprofileComponent } from './components/myprofile/myprofile.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     NotFoundComponent,
     MainNavComponent,
     CalendarComponent,
-    CalendarEventModalComponent
+    CalendarEventModalComponent,
+    MyprofileComponent
   ],
   imports: [
     BrowserModule,

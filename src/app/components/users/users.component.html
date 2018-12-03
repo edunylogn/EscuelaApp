@@ -13,7 +13,7 @@
       <span class="my_tag teal lighten-5">
         <strong>email:</strong>{{user.email}}</span>
       <hr>
-      <div *ngIf="editState && userToEdit.username == user.username" class="container-updateuser">
+      <div *ngIf="editState && userToEdit.id == user.id" class="container-updateuser">
         <!-- TODO: form -->
         <form (ngSubmit)="onUdpdateUser(user)" class="col s6">
           <div class="row">
@@ -43,15 +43,17 @@
               </div>
             </div>
             <div class="input-field col s6">
-              <input [(ngModel)]="user.userType" #userType="ngModel" type="text" name="userType" id="userType"
-                minlength="1" maxlength="200" required/>
-              <label class="active">Tipo Usuario</label>
+              <select [(ngModel)]="user.userType" #userType="ngModel" name="userType" id="userType" class="browser-default" required>
+                <option value="" disabled>Seleccione el tipo de usuario</option>
+                <option [value]="1">Administrador</option>
+                <option [value]="2">Personal</option>
+                <option [value]="3">Encargado</option>
+              </select>
+              <label class="active">Tipo de Usuario</label>
               <div *ngIf="userType.touched && !userType.valid">
-                <div *ngIf="userType.errors.required">Tipo de Usuario es requerido</div>
-                <div *ngIf="userToEdit.errors.minlength">Tipo de Usuario debe ser de al menos {{userType.errors.minlength.requiredLength}} caracteres.</div>
+                <div *ngIf="userType.errors.required">Tipo de usuario es requerido</div>
               </div>
             </div>
-
             <button (click)="deleteUser($user, user)" class="btn red right">Borrar
               <i class="material-icons right">delete_forever</i>
             </button>

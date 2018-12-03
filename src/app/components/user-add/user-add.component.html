@@ -4,15 +4,6 @@
     <form (ngSubmit)="onGuardarUser(formNew)" #formNew="ngForm" class="col s6">
         <div class="row">
             <div class="input-field col s6">
-              <input [(ngModel)]="user.username" #username="ngModel" type="text" name="username" id="username" minlength="2"
-                maxlength="100" required/>
-              <label class="active">Usuario</label>
-              <div *ngIf="username.touched && !username.valid">
-                <div *ngIf="username.errors.required">Usuario es requerido</div>
-                <div *ngIf="username.errors.minlength">Usuario debe ser de al menos {{username.errors.minlength.requiredLength}} caracteres.</div>
-              </div>
-            </div>
-            <div class="input-field col s6">
               <input [(ngModel)]="user.idPerson" #idPerson="ngModel" type="text" name="idPerson" id="idPerson"
                 minlength="09" maxlength="200" required/>
               <label class="active">Identificación</label>

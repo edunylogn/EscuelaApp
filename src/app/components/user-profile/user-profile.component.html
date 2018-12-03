@@ -18,6 +18,8 @@
     </div>
     <div class="col s8 offset-s2 center" *ngIf="auth.user | async as user">
       <h3>Bienvenido {{ user.username }}</h3>
+      <hr>
+      <a *ngIf="user.userType" routerLink="/myprofile"class="btn-small">Usuario autorizado. Complete su perfil si no lo ha hecho.</a>
       <h5 *ngIf="!user.userType" class="alert-permisos red white-text">Favor contactar el administrador para asignarle sus respectivos permisos</h5>
     </div>
   </div>

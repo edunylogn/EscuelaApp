@@ -23,7 +23,7 @@ export class StudentSectionAddComponent implements OnInit {
 
   ngOnInit() {
     this.personService.getPersons().subscribe(persons=>{
-      this.persons = persons;
+      this.persons = persons.filter(p => p.personType === 4);
     });
     this.sectionService.getSections().subscribe(sections=>{
       this.sections=sections;
