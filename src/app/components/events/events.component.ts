@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { EventInterface } from '../../models/eventInterface';
 import { EventService } from '../../services/event.service';
 import { SectionService } from 'src/app/services/section.service';
@@ -9,7 +9,13 @@ import { SectionInterface } from 'src/app/models/sectionInterface';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.less']
 })
-export class EventsComponent implements OnInit {
+
+
+export class EventsComponent implements OnInit, OnChanges {
+
+  @Input()
+  sectionFilter: string | Number;
+
   events: EventInterface[];
   sections: SectionInterface[];
   editState: boolean = false;
@@ -21,11 +27,19 @@ export class EventsComponent implements OnInit {
     this.sectionService.getSections().subscribe(sections=>{
       this.sections=sections;
       this.eventService.getEvents().subscribe(events => {
-        this.events = events;
+        if (this.sectionFilter) {
+          this.events = events.filter(e => e.idSection === this.sectionFilter);
+        } else {
+          this.events = events;
+        }
         this.cd.markForCheck();
         console.log(this.events);
       });
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.cd.markForCheck();
   }
   
   editEvent(e, event: EventInterface) {

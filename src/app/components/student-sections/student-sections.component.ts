@@ -25,7 +25,7 @@ export class StudentSectionsComponent implements OnInit {
       console.log(this.studentSections);
     });
     this.personService.getPersons().subscribe(persons=>{
-      this.persons = persons.filter(p => p.personType === 4);
+      this.persons = persons.filter(p => p.personType === '4');
     });
     this.sectionService.getSections().subscribe(sections=>{
       this.sections=sections;

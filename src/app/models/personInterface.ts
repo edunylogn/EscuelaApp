@@ -7,5 +7,5 @@ export interface PersonInterface {
     email?: string;
     birthday?: any;
     phone?: number;
-    personType?: number;
+    personType?: string;
 }

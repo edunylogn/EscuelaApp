@@ -3,44 +3,45 @@
     <span class="card-title">Nuevo Usuario</span>
     <form (ngSubmit)="onGuardarUser(formNew)" #formNew="ngForm" class="col s6">
         <div class="row">
-            <div class="input-field col s6">
-              <input [(ngModel)]="user.idPerson" #idPerson="ngModel" type="text" name="idPerson" id="idPerson"
-                minlength="09" maxlength="200" required/>
-              <label class="active">Identificación</label>
-              <div *ngIf="idPerson.touched && !idPerson.valid">
-                <div *ngIf="idPerson.errors.required">Identificación es requerida</div>
-                <div *ngIf="idPerson.errors.minlength">Identificación debe ser de al menos {{idPerson.errors.minlength.requiredLength}} caracteres.</div>
-              </div>
+          <div class="input-field col s6">
+            <input [(ngModel)]="user.idPerson" #idPerson="ngModel" type="text" name="idPerson" id="idPerson"
+              minlength="09" maxlength="200" required/>
+            <label class="active">Identificación</label>
+            <div *ngIf="idPerson.touched && !idPerson.valid">
+              <div *ngIf="idPerson.errors.required">Identificación es requerida</div>
+              <div *ngIf="idPerson.errors.minlength">Identificación debe ser de al menos {{idPerson.errors.minlength.requiredLength}} caracteres.</div>
             </div>
-            <div class="input-field col s6">
-              <input [(ngModel)]="user.password" #password="ngModel" type="text" name="password" id="password"
-                minlength="8" maxlength="200" required/>
-              <label class="active">Contraseña</label>
-              <div *ngIf="password.touched && !password.valid">
-                <div *ngIf="password.errors.required">Contraseña es requerida</div>
-                <div *ngIf="password.errors.minlength">Contraseña debe ser de al menos {{password.errors.minlength.requiredLength}} caracteres.</div>
-              </div>
+          </div>
+          <div class="input-field col s6">
+            <input [(ngModel)]="user.password" #password="ngModel" type="text" name="password" id="password"
+              minlength="8" maxlength="200" required/>
+            <label class="active">Contraseña</label>
+            <div *ngIf="password.touched && !password.valid">
+              <div *ngIf="password.errors.required">Contraseña es requerida</div>
+              <div *ngIf="password.errors.minlength">Contraseña debe ser de al menos {{password.errors.minlength.requiredLength}} caracteres.</div>
             </div>
-            <div class="input-field col s6">
-              <input [(ngModel)]="user.email" #email="ngModel" type="text" name="email" id="email"
-                minlength="8" maxlength="200" required/>
-              <label class="active">Correo Electrónico</label>
-              <div *ngIf="email.touched && !email.valid">
-                <div *ngIf="email.errors.required">Correo es requerido</div>
-                <div *ngIf="email.errors.minlength">Correo debe ser de al menos {{email.errors.minlength.requiredLength}} caracteres.</div>
-              </div>
+          </div>
+          <div class="input-field col s6">
+            <input [(ngModel)]="user.email" #email="ngModel" type="text" name="email" id="email"
+              minlength="8" maxlength="200" required/>
+            <label class="active">Correo Electrónico</label>
+            <div *ngIf="email.touched && !email.valid">
+              <div *ngIf="email.errors.required">Correo es requerido</div>
+              <div *ngIf="email.errors.minlength">Correo debe ser de al menos {{email.errors.minlength.requiredLength}} caracteres.</div>
             </div>
-            <div class="input-field col s6">
-              <input [(ngModel)]="user.userType" #userType="ngModel" type="text" name="userType" id="userType"
-                minlength="1" maxlength="200" required/>
-              <label class="active">Tipo Usuario</label>
-              <div *ngIf="userType.touched && !userType.valid">
-                <div *ngIf="userType.errors.required">Tipo de Usuario es requerido</div>
-                <div *ngIf="userToEdit.errors.minlength">Tipo de Usuario debe ser de al menos {{userType.errors.minlength.requiredLength}} caracteres.</div>
-              </div>
+          </div>
+          <div class="input-field col s6">
+            <input [(ngModel)]="user.userType" #userType="ngModel" type="text" name="userType" id="userType"
+              minlength="1" maxlength="200" required/>
+            <label class="active">Tipo Usuario</label>
+            <div *ngIf="userType.touched && !userType.valid">
+              <div *ngIf="userType.errors.required">Tipo de Usuario es requerido</div>
+              <div *ngIf="userToEdit.errors.minlength">Tipo de Usuario debe ser de al menos {{userType.errors.minlength.requiredLength}} caracteres.</div>
             </div>
-
-        <button type="submit" class="btn waves-effect waves-light orange right">Guardar
+          </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn waves-effect waves-light orange right">Guardar
             <i class="material-icons">add_circle</i>
           </button>
         </div>

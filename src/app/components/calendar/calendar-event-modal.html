@@ -1,15 +1,28 @@
-<h1 mat-dialog-title>Favorite Animal</h1>
+<h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
-  My favorite animal is:
-  <ul>
+  Detalles:
+  <!-- <ul>
     <li>
-      <span *ngIf="data.animal === 'panda'">&#10003;</span> Panda
+      <span>&#10003;</span> {{event.description}}
     </li>
     <li>
-      <span *ngIf="data.animal === 'unicorn'">&#10003;</span> Unicorn
+      <span>&#10003;</span> <strong>Lugar:</strong>{{event.location}}</span>
     </li>
     <li>
-      <span *ngIf="data.animal === 'lion'">&#10003;</span> Lion
+      <span>&#10003;</span> <strong>Categoría:</strong>{{event.category}}</span>
     </li>
-  </ul>
+  </ul> -->
+  <blockquote>{{event.description}}</blockquote>
+  <span class="my_tag teal lighten-5">
+    <strong>Lugar:</strong>{{event.location}}
+  </span>
+  <span class="my_tag teal lighten-5">
+    <strong>Categoría:</strong>{{event.category}}
+  </span>
+  <span class="my_tag teal lighten-5">
+    <strong>Fecha:</strong>{{event.date}}
+  </span>
+  <span class="my_tag teal lighten-5">
+    <strong>Seccion:</strong> {{getSectionName(event.idSection)}}
+  </span>
 </div>

@@ -5,7 +5,7 @@
     </h2>
   </div>
   <div class="section-filter input-field col s4 mt-4" style="margin-top: 2.5em;">
-    <select [(ngModel)]="idSectionSelected" #idSection="ngModel" name="idSection" id="idSection" class="browser-default">
+    <select [(ngModel)]="idSectionSelected" (change)="filterBySection($event.target.value)" #idSection="ngModel" name="idSection" id="idSection" class="browser-default">
       <option *ngFor="let section of sections" [value]="section.id">{{ section.idSection }}</option>
     </select>
     <label class="active green-text">Sección</label>
@@ -149,4 +149,4 @@
 </table>
    -->
 
-<app-events>
+<app-events [sectionFilter]="idSectionSelected">

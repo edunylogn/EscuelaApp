@@ -9,9 +9,9 @@
       <h5>
         <strong>{{user.email}}</strong>
       </h5>
-      <blockquote>{{user.idPerson}}</blockquote>
+      <blockquote>{{getPersonName(user.idPerson)}}</blockquote>
       <span class="my_tag teal lighten-5">
-        <strong>email:</strong>{{user.email}}</span>
+        <strong>email:</strong> {{user.email}}</span>
       <hr>
       <div *ngIf="editState && userToEdit.id == user.id" class="container-updateuser">
         <!-- TODO: form -->
@@ -54,6 +54,8 @@
                 <div *ngIf="userType.errors.required">Tipo de usuario es requerido</div>
               </div>
             </div>
+          </div>
+          <div class="row">
             <button (click)="deleteUser($user, user)" class="btn red right">Borrar
               <i class="material-icons right">delete_forever</i>
             </button>

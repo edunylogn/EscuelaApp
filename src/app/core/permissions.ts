@@ -10,10 +10,10 @@ export const roles = [
 @Injectable()
 export class Permissions {
     canActivate(user: UserInterface, id: string): boolean {
-        if (user.userType === 1) {
+        if (user.userType === '1') {
             return true;
         }
-        if (roles[user.userType - 1] && roles[user.userType - 1].permissions.includes(id)) {
+        if (roles[parseInt(user.userType) - 1] && roles[parseInt(user.userType) - 1].permissions.includes(id)) {
             return true;
         }
         return false;

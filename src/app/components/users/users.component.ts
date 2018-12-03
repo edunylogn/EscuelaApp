@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
       this.users = users;
     });
     this.personService.getPersons().subscribe(persons=>{
-      this.persons = persons.filter(p => p.personType !== 2);
+      this.persons = persons.filter(p => p.personType !== '2');
     });
   }
 
@@ -44,5 +44,12 @@ export class UsersComponent implements OnInit {
       e.preventDefault();
     this.editState = false;
     this.userToEdit = null;
+  }
+
+  getPersonName(id: Number) {
+    if (this.persons) {
+      const person = this.persons.find(p => p.id === id);
+      return person ? person.name : id;
+    }
   }
 }

@@ -17,10 +17,6 @@ const colors: any = {
   yellow: { primary: '#e3bc08', secondary: '#FDF1BA' }
 };
 
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
-
 @Component({
   selector: 'calendar-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,21 +36,21 @@ export class CalendarComponent {
   sections: SectionInterface[];
   idSectionSelected: string | number;
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
+  // actions: CalendarEventAction[] = [
+  //   {
+  //     label: '<i class="fa fa-fw fa-pencil"></i>',
+  //     onClick: ({ event }: { event: CalendarEvent }): void => {
+  //       this.handleEvent('Edited', event);
+  //     }
+  //   },
+  //   {
+  //     label: '<i class="fa fa-fw fa-times"></i>',
+  //     onClick: ({ event }: { event: CalendarEvent }): void => {
+  //       this.events = this.events.filter(iEvent => iEvent !== event);
+  //       this.handleEvent('Deleted', event);
+  //     }
+  //   }
+  // ];
 
   refresh: Subject<any> = new Subject();
 
@@ -78,6 +74,7 @@ export class CalendarComponent {
             this.eventsData = events.filter(e => e.idSection === this.idSectionSelected);
             this.events = this.eventsData.map((event: EventInterface) => {
                 return {
+                  id: event.id,
                   start: addMinutes(new Date(event.date), new Date(event.date).getTimezoneOffset()),
                   title: event.title,
                 };
@@ -88,26 +85,9 @@ export class CalendarComponent {
     });
   }
 
-  editEvent(e, event: EventInterface) {
-    e.preventDefault();
-    this.editState = true;
-    this.eventToEdit = event;
+  filterBySection(idSection) {
+    this.idSectionSelected = idSection;
   }
-  onUdpdateEvent(event: EventInterface) {
-    this.eventService.updateEvent(event);
-    this.clearState();
-  }
-  deleteEvent(e, event: EventInterface) {
-    this.eventService.deleteEvent(event);
-    this.clearState();
-  }
-  clearState(e = null) {
-    if (e)
-      e.preventDefault();
-    this.editState = false;
-    this.eventToEdit = null;
-  }
-
 
   /////////
 
@@ -132,18 +112,13 @@ export class CalendarComponent {
   }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
+    // this.handleEvent('Dropped or resized', event);
     this.refresh.next();
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    // this.modalData = { event, action };
-
-    this.dialog.open(CalendarEventModalComponent, {
-      data: {
-        animal: 'panda'
-      }
-    });
+    const ev = this.eventsData.find(e => e.id === event.id);
+    this.dialog.open(CalendarEventModalComponent, { data: ev });
   }
 
   addEvent(): void {
@@ -160,6 +135,13 @@ export class CalendarComponent {
     });
     this.refresh.next();
   }
+
+  getSectionName(id: Number) {
+    if (this.sections) {
+      const section = this.sections.find(p => p.id === id);
+      return section ? section.idSection : id;
+    }
+  }
 }
 
 
@@ -172,7 +154,8 @@ export class CalendarEventModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CalendarEventModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: EventInterface
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();

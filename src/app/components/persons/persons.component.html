@@ -11,13 +11,13 @@
       </h5>
       <blockquote>{{person.identification}}</blockquote>
       <span class="my_tag teal lighten-5">
-        <strong>Direccion:</strong>{{person.address}}</span>
+        <strong>Direccion:</strong> {{person.address}}</span>
       <span class="my_tag teal lighten-5">
-        <strong>Fecha Nacimiento:</strong>{{person.birthday}}</span>
+        <strong>Fecha Nacimiento:</strong> {{person.birthday}}</span>
       <span class="my_tag teal lighten-5">
-        <strong>Teléfono:</strong>{{person.phone}}</span>
+        <strong>Teléfono:</strong> {{person.phone}}</span>
       <span class="my_tag teal lighten-5">
-        <strong>Email:</strong>{{person.email}}</span>  
+        <strong>Email:</strong> {{person.email}}</span>  
       <hr>
       <div *ngIf="editState && personToEdit.id == person.id" class="container-updateperson">
         <!-- TODO: form -->
@@ -87,8 +87,9 @@
             <div class="input-field col s6">
               <select [(ngModel)]="person.personType" #personType="ngModel" name="personType" id="personType" class="browser-default" required>
                 <option value="" disabled>Seleccione el tipo de persona</option>
+                <option [value]="1">Administrador</option>
                 <option [value]="2">Profesor</option>
-                <option [value]="3">Estudiante</option>
+                <option [value]="3">Encargado</option>
                 <option [value]="4">Estudiante</option>
               </select>
               <label class="active">Profesor Encargado</label>
@@ -96,6 +97,8 @@
                 <div *ngIf="personType.errors.required">Tipo de persona es requerido</div>
               </div>
             </div>
+          </div>
+          <div class="row right">
             <button (click)="deletePerson($event, person)" class="btn red right">Borrar
               <i class="material-icons right">delete_forever</i>
             </button>

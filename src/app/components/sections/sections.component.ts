@@ -21,7 +21,7 @@ export class SectionsComponent implements OnInit {
       this.sections=sections;
     }); 
     this.personService.getPersons().subscribe(persons=>{
-      this.persons = persons.filter(p => p.personType === 2);
+      this.persons = persons.filter(p => p.personType === '2');
     });
   }
 
